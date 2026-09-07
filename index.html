@@ -1,0 +1,2813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO META TAGS -->
+    <meta name="description" content="Tiffins Care - Fresh homemade North & South Indian tiffins delivered in Manavnagar, Dighori, Nagpur. FSSAI registered daily meal subscriptions.">
+    <meta name="keywords" content="Tiffin service Nagpur, home cooked food, meal delivery Dighori, healthy tiffin, food subscription Nagpur, North Indian tiffin, South Indian tiffin">
+    <meta name="author" content="Tiffins Care">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Tiffins Care - Homemade Tiffin Delivery in Nagpur">
+    <meta property="og:description" content="Subscribe to healthy, freshly cooked daily tiffins delivered right to your doorstep in Dighori, Nagpur.">
+    <meta property="og:type" content="website">
+
+    <title>Tiffins Care - Portal</title>
+    
+    <!-- PROFESSIONAL TIFFINS SERVICES FAVICON -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍱</text></svg>">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root {
+            --mac-bg: #f5f5f7;
+            --mac-panel: #ffffff;
+            --mac-border: rgba(0, 0, 0, 0.1);
+            --mac-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            --mac-text: #1d1d1f;
+            
+            --top-bar-bg: #064e3b;
+            --hero-bg: #0b7a54;
+            --card-outer-bg: #168c63;
+            --card-inner-bg: #0a6446;
+            --mint-highlight: #88edbb;
+            --text-dark: #1a1a1a;
+            --theme-red: #d32f2f;
+            --pending-orange: #f57c00;
+            --delivery-blue: #0284c7;
+            --wa-green: #0d5c3c;
+            
+            --memo-bg-dark: #022c22;
+            --memo-card-inner: #064e3b;
+            --memo-border: #047857;
+            --memo-text-light: #ecfdf5;
+            --memo-text-muted: #a7f3d0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--mac-bg);
+            background-image: radial-gradient(circle at top right, #e0eafc, #cfdef3);
+            color: var(--mac-text);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            overflow-x: hidden;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        input, textarea, select {
+            -webkit-user-select: auto;
+            -ms-user-select: auto;
+            user-select: auto;
+        }
+
+        .window {
+            background: var(--mac-panel);
+            border-radius: 12px;
+            box-shadow: var(--mac-shadow);
+            width: 100%;
+            max-width: 1400px; 
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 95vh;
+        }
+
+        .sticky-header-wrapper {
+            position: sticky;
+            top: 0;
+            z-index: 50000;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .top-bar {
+            background-color: var(--top-bar-bg);
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+
+        .mac-traffic-lights { display: flex; gap: 8px; align-items: center; width: 60px; }
+        .mac-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; box-shadow: inset 0 1px 3px rgba(0,0,0,0.3); }
+        @keyframes macBlinkGlow {
+            0%, 100% { filter: brightness(1); box-shadow: 0 0 0px transparent, inset 0 1px 3px rgba(0,0,0,0.3); }
+            50% { filter: brightness(1.3); box-shadow: 0 0 8px currentColor, inset 0 1px 3px rgba(0,0,0,0.3); }
+        }
+        .mac-close { background-color: #ff5f56; color: #ff5f56; animation: macBlinkGlow 1.5s infinite 0s; }
+        .mac-minimize { background-color: #ffbd2e; color: #ffbd2e; animation: macBlinkGlow 1.5s infinite 0.2s; }
+        .mac-maximize { background-color: #27c93f; color: #27c93f; animation: macBlinkGlow 1.5s infinite 0.4s; }
+        
+        .top-bar-text { flex-grow: 1; text-align: center; }
+        .top-bar-spacer { width: 60px; }
+
+        .header {
+            background: #ffffff;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .logo-container { display: flex; align-items: center; gap: 15px; cursor: pointer; }
+        .logo-icon { background: var(--hero-bg); width: 45px; height: 45px; border-radius: 12px; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(11, 122, 84, 0.3); }
+        .logo-text-block { display: flex; flex-direction: column; }
+        .logo-title { font-size: 22px; font-weight: 800; color: var(--text-dark); line-height: 1.1; letter-spacing: -0.5px; }
+        .logo-subtitle { font-size: 12px; color: var(--hero-bg); font-weight: 600; display: flex; align-items: center; gap: 4px; }
+
+        /* --- BLINKING DROP PIN CSS --- */
+        @keyframes pinBlinkPulse {
+            0%, 100% { opacity: 1; transform: translateY(0) scale(1); }
+            50% { opacity: 0.3; transform: translateY(-2px) scale(1.1); }
+        }
+        .blinking-pin {
+            display: inline-block;
+            animation: pinBlinkPulse 1.2s infinite ease-in-out;
+            transform-origin: bottom center;
+        }
+
+        /* --- DYNAMIC REVIEW FEED CSS --- */
+        .review-container {
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin: 15px 0;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .review-slide {
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            pointer-events: none;
+        }
+        .review-slide.active-review {
+            opacity: 1;
+            position: relative;
+            pointer-events: auto;
+        }
+        .review-stars { color: #f59e0b; font-size: 18px; margin-bottom: 8px; letter-spacing: 2px; }
+        .review-text { font-style: italic; color: #334155; font-size: 15px; margin-bottom: 12px; line-height: 1.6; padding: 0 15px; }
+        .review-author { font-size: 13px; font-weight: 800; color: #0b7a54; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .verified-tick { background: #10b981; color: white; border-radius: 50%; width: 14px; height: 14px; display: inline-flex; justify-content: center; align-items: center; font-size: 9px; box-shadow: 0 2px 4px rgba(16,185,129,0.3); }
+
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 28px; color: var(--text-dark); cursor: pointer; padding: 5px; }
+
+        .nav-links { display: flex; gap: 15px; align-items: center; flex-wrap: wrap; }
+        .nav-item { color: var(--text-dark); font-weight: 600; font-size: 14px; cursor: pointer; background: none; border: none; }
+        .nav-item:hover, .nav-item.active { color: var(--hero-bg); }
+        
+        .btn-header-wa {
+            background: var(--hero-bg); color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 8px; cursor: pointer; box-shadow: 0 4px 10px rgba(11, 122, 84, 0.2);
+        }
+        .btn-header-wa:hover { background: #096344; }
+
+        .btn-share {
+            background: #e2e8f0; color: #334155; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: 0.2s;
+        }
+        .btn-share:hover { background: #cbd5e1; }
+
+        .content { display: none; flex-grow: 1; }
+        .content.active { display: block; }
+        .inner-padding { padding: 40px; }
+
+        .footer-copyright {
+            background-color: #064e3b; color: #a7f3d0; text-align: center; padding: 20px 30px; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: auto; display: flex; flex-direction: column; gap: 6px;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+        .footer-copyright span { color: #ffffff; font-weight: 700; }
+        
+        .visitor-counter {
+            font-size: 11px; color: #6ee7b7; margin-top: 8px; font-weight: 700; background: rgba(0,0,0,0.3); padding: 5px 12px; border-radius: 20px; display: inline-flex; align-items: center; gap: 6px; width: fit-content; margin-left: auto; margin-right: auto;
+        }
+
+        .hero-section { background: var(--hero-bg); padding: 60px 40px; display: flex; align-items: center; justify-content: space-between; gap: 40px; color: white; flex-wrap: wrap; }
+        .hero-left { flex: 1 1 500px; max-width: 650px; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); padding: 6px 16px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 25px; color: #e8f5e9; }
+        .hero-left h1 { font-size: 44px; line-height: 1.2; font-weight: 800; margin-bottom: 20px; letter-spacing: -1px; }
+        .hero-left h1 .highlight { color: var(--mint-highlight); }
+        .hero-left p { font-size: 16px; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 35px; max-width: 95%; }
+        
+        .hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
+        .btn-subscribe { background: #ffffff; color: var(--hero-bg); border: none; padding: 14px 28px; border-radius: 8px; font-weight: 700; font-size: 15px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.2s; }
+        .btn-subscribe:hover { background: #f0f0f0; transform: translateY(-2px); }
+        
+        .hero-right { flex: 1 1 500px; }
+        .plans-outer-card { background: var(--card-outer-bg); padding: 25px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+        .plans-header { color: #e0f2f1; font-size: 13px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+        .plans-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .plan-item { background: var(--card-inner-bg); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); }
+        .plan-title { color: rgba(255,255,255,0.8); font-size: 11px; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; }
+        
+        /* Fixed Plan Price CSS */
+        .plan-price { color: #ffffff; font-size: 28px; font-weight: 800; margin-bottom: 8px; display: flex; align-items: baseline; gap: 4px; }
+        .plan-price .period { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.7); }
+        
+        .plan-desc { color: rgba(255,255,255,0.8); font-size: 12px; line-height: 1.4; }
+
+        .menus-section { background: #ffffff; padding: 60px 40px; text-align: center; }
+        .menus-badge { display: inline-block; background: #e8f5e9; color: var(--hero-bg); padding: 5px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 15px; }
+        .menus-section h2 { font-size: 34px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px; }
+        .menus-section > p { color: #666; font-size: 15px; margin-bottom: 45px; }
+        .menus-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; text-align: left; }
+        .menu-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); transition: transform 0.2s; }
+        .menu-card:hover { transform: translateY(-4px); }
+        
+        .menu-card h3 { font-size: 20px; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
+        .menu-card p { font-size: 13px; color: #64748b; margin-bottom: 20px; line-height: 1.4; }
+        .menu-divider { height: 1px; background: #e2e8f0; margin-bottom: 20px; }
+        .menu-items-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .menu-items-list li { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; color: #334155; }
+        .check-icon { color: var(--hero-bg); font-weight: bold; font-size: 15px; }
+
+        .userform-container { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 40px; max-width: 850px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+        .userform-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
+        .userform-title-tag { font-size: 11px; font-weight: 700; color: var(--hero-bg); letter-spacing: 1px; margin-bottom: 6px; text-transform: uppercase; }
+        .userform-title { font-size: 26px; font-weight: 800; color: var(--text-dark); margin-bottom: 6px; }
+        .userform-subtitle { font-size: 13px; color: #64748b; }
+        .autosave-pill { background: #e8f5e9; color: var(--hero-bg); padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; display: flex; align-items: center; gap: 5px; height: fit-content; }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .form-group label { font-size: 12px; font-weight: 700; color: #334155; letter-spacing: 0.5px; }
+        
+        .input-with-icon { position: relative; display: flex; align-items: center; }
+        .input-with-icon input, .input-with-icon select { padding-left: 40px !important; margin-bottom: 0; border: 1px solid #cbd5e1; border-radius: 8px; height: 48px; background: #fff; width: 100%; }
+        .input-icon { position: absolute; left: 14px; color: #64748b; font-size: 16px; z-index: 2; }
+
+        input[type="text"], input[type="tel"], input[type="number"], input[type="password"], select, textarea {
+            border: 1px solid #cbd5e1; border-radius: 8px; height: 48px; padding: 0 15px; background: #fff; font-size: 14px; width: 100%; transition: all 0.3s ease-in-out;
+        }
+        textarea { height: auto; padding: 12px 15px; }
+
+        input[type="text"]:hover, input[type="tel"]:hover, input[type="number"]:hover, input[type="password"]:hover, select:hover, textarea:hover { border-color: var(--hero-bg); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        input[type="text"]:focus, input[type="tel"]:focus, input[type="number"]:focus, input[type="password"]:focus, select:focus, textarea:focus { outline: none; border-color: var(--hero-bg); box-shadow: 0 0 0 4px rgba(11, 122, 84, 0.15); transform: translateY(-2px); }
+
+        .admin-search-box { width: 100%; padding: 12px 15px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 14px; transition: all 0.3s; }
+        .admin-search-box:focus { border-color: var(--hero-bg); box-shadow: 0 0 0 4px rgba(11, 122, 84, 0.15); outline: none; }
+
+        .policy-box { background: #fffbeb; border: 1px solid #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; border-radius: 8px; margin-bottom: 25px; display: flex; gap: 12px; align-items: flex-start; }
+        .policy-icon { font-size: 18px; }
+        .policy-text { font-size: 12px; color: #92400e; line-height: 1.5; }
+        .policy-text b { font-weight: 700; }
+
+        .form-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+        .btn-submit-booking { background: var(--hero-bg); color: white; border: none; height: 50px; border-radius: 8px; font-weight: 700; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s; width: 100%; }
+        .btn-submit-booking:hover { background: #085e40; }
+        
+        .btn-wa-booking { background: #25D366; color: #022c22; border: none; height: 50px; border-radius: 8px; font-weight: 800; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s; width: 100%; }
+        .btn-wa-booking:hover { background: #1eb956; transform: translateY(-2px); }
+
+        .thermal-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 30000; }
+        .thermal-modal-card { background: #ffffff; border-radius: 16px; padding: 30px; width: 420px; max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px rgba(0,0,0,0.25); text-align: center; }
+        .thermal-receipt { background: #fffdfa; color: #111; font-family: 'Courier New', Courier, monospace; width: 320px; margin: 0 auto 20px auto; padding: 20px; border: 1px dashed #cbd5e1; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: left; font-size: 12px; line-height: 1.4; }
+        .thermal-center { text-align: center; }
+        .thermal-bold { font-weight: bold; }
+        .thermal-line { border-top: 1px dashed #333; margin: 10px 0; }
+        .thermal-flex { display: flex; justify-content: space-between; }
+        .thermal-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+        .btn-thermal { background: #3b82f6; color: white; border: none; padding: 10px; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .btn-thermal.pdf { background: #ef4444; }
+        .btn-thermal.jpeg { background: #10b981; }
+        .btn-thermal.wa { background: #0d5c3c; grid-column: span 2; }
+        .btn-thermal-close { background: #e2e8f0; color: #334155; border: none; padding: 10px; border-radius: 6px; font-weight: 600; width: 100%; cursor: pointer; }
+
+        .dashboard-header-flex { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 25px; gap: 20px; }
+        .round-clock-container { display: flex; align-items: center; gap: 15px; background: #fff; padding: 10px 20px; border-radius: 50px; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .round-clock { width: 50px; height: 50px; border-radius: 50%; background: #e8f5e9; border: 3px solid var(--hero-bg); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; color: var(--hero-bg); }
+        .clock-label { font-size: 12px; color: #64748b; font-weight: 600; }
+        .clock-time { font-size: 16px; font-weight: 800; color: var(--text-dark); }
+
+        .login-wrapper { display: flex; justify-content: center; align-items: center; min-height: 450px; padding: 20px; }
+        .login-card-box { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 40px; width: 100%; max-width: 520px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); text-align: center; }
+        .login-card-box h2 { font-size: 24px; font-weight: 800; color: var(--text-dark); margin-bottom: 10px; }
+        .login-card-box p { font-size: 14px; color: #64748b; margin-bottom: 20px; line-height: 1.5; }
+        .login-card-box input { margin-bottom: 15px; text-align: center; }
+        .login-card-box .btn-standard { height: 50px; background: var(--hero-bg); color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 15px; cursor: pointer; width: 100%; transition: 0.2s; }
+        .login-card-box .btn-standard:hover { background: #085e40; }
+
+        .captcha-box { display: flex; align-items: center; justify-content: space-between; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px 15px; margin-bottom: 15px; gap: 10px; }
+        .captcha-code { font-family: monospace; font-size: 20px; font-weight: 800; letter-spacing: 4px; color: #0b7a54; background: #e8f5e9; padding: 5px 15px; border-radius: 6px; user-select: none; }
+        .captcha-refresh { background: none; border: none; color: #64748b; cursor: pointer; font-size: 13px; font-weight: 600; text-decoration: underline; }
+        .captcha-refresh:hover { color: var(--hero-bg); }
+
+        .policy-embed-box { background: #fffbeb; border: 1px solid #fef3c7; border-left: 4px solid #f59e0b; padding: 12px 15px; border-radius: 8px; margin-top: 20px; text-align: left; display: flex; flex-direction: column; gap: 8px; }
+        .policy-embed-header { display: flex; align-items: center; justify-content: space-between; font-size: 11px; font-weight: 800; color: #92400e; }
+        .policy-embed-body { font-size: 11px; color: #78350f; line-height: 1.4; }
+        .terms-footer-link { background: none; border: none; color: #0b7a54; font-size: 11px; font-weight: 700; cursor: pointer; text-align: left; padding: 0; display: inline-flex; align-items: center; gap: 4px; margin-top: 4px; }
+        .terms-footer-link:hover { text-decoration: underline; }
+
+        .terms-modal-overlay, .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 20000; }
+        .terms-modal-card, .modal-card { background: white; padding: 30px; border-radius: 16px; width: 450px; text-align: left; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .terms-modal-card h3, .modal-card h3 { font-size: 18px; color: var(--text-dark); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .terms-modal-card p, .modal-card p { font-size: 13px; color: #475569; margin-bottom: 12px; line-height: 1.5; }
+        .btn-terms-close { background: var(--hero-bg); color: white; border: none; padding: 10px; border-radius: 8px; font-weight: 600; width: 100%; cursor: pointer; margin-top: 10px; }
+        .modal-buttons { display: flex; gap: 10px; }
+        .btn-modal-confirm { background: var(--hero-bg); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 600; flex: 1; cursor: pointer; }
+        .btn-modal-cancel { background: #e2e8f0; color: #334155; border: none; padding: 12px; border-radius: 8px; font-weight: 600; flex: 1; cursor: pointer; }
+
+        .slip-view-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 40000; }
+        .slip-view-card { background: white; padding: 25px; border-radius: 12px; width: 500px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+        .slip-image-container { width: 100%; height: 350px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 20px; }
+        .slip-image-container img { max-width: 100%; max-height: 100%; display: none; }
+
+        #adminManualEntryModal .form-group { margin-bottom: 12px; }
+        #adminManualEntryModal label { font-size: 11px; font-weight: 700; color: #334155; margin-bottom: 4px; display:block; }
+        #adminManualEntryModal input, #adminManualEntryModal select { padding-left: 12px !important; font-size: 13px; }
+
+        .grid-standard { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: #ffffff; padding: 25px; border-radius: 12px; border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #eee; }
+        th { background: #f8f9fa; color: #333; font-weight: 600; }
+
+        .status-tag { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+        .tag-pending { background: #fff3cd; color: var(--pending-orange); border: 1px solid #ffeeba; }
+        .tag-delivery { background: #e0f2fe; color: var(--delivery-blue); border: 1px solid #bae6fd; }
+        .tag-confirmed { background: #e8f5e9; color: var(--hero-bg); border: 1px solid #c8e6c9; }
+
+        .payment-badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; background: #f1f5f9; color: #475569; }
+        .payment-badge.upi { background: #ede9fe; color: #7c3aed; }
+        .payment-badge.cod { background: #fef3c7; color: #d97706; }
+        .payment-badge.advance { background: #dcfce7; color: #15803d; }
+
+        .btn-action-edit { background: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; font-weight: 600; margin-right: 5px; }
+        .btn-action-edit:hover { background: #2563eb; }
+
+        .btn-reorder { background: #d97706; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; font-weight: 800; box-shadow: 0 0 10px rgba(217, 119, 6, 0.5); animation: reorderPulse 2s infinite; }
+        .btn-reorder:hover { background: #b45309; }
+        @keyframes reorderPulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.7); } 70% { transform: scale(1.03); box-shadow: 0 0 0 6px rgba(217, 119, 6, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(217, 119, 6, 0); } }
+
+        .btn-rem-wa { background: #f59e0b; color: #fff; border: none; padding: 4px 6px; border-radius: 4px; font-size: 10px; font-weight: 700; cursor: pointer; transition: 0.2s; flex: 1; text-align: center; }
+        .btn-rem-wa:hover { background: #d97706; transform: translateY(-1px); }
+
+        .admin-remark-input { width: 140px; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 12px; background: #fff; transition: all 0.3s; }
+        .admin-remark-input:focus { border-color: var(--hero-bg); box-shadow: 0 0 0 3px rgba(11, 122, 84, 0.15); outline: none; }
+        .remark-btn-group { display: flex; gap: 5px; margin-top: 6px; }
+        .btn-remark-view { background: #3b82f6; color: white; border: none; padding: 5px 10px; border-radius: 5px; font-size: 11px; font-weight: 700; cursor: pointer; flex: 1; transition: 0.2s; }
+        .btn-remark-view:hover { background: #2563eb; transform: translateY(-1px); }
+        .btn-remark-update { background: #0b7a54; color: white; border: none; padding: 5px 10px; border-radius: 5px; font-size: 11px; font-weight: 700; cursor: pointer; flex: 1; transition: 0.2s; }
+        .btn-remark-update:hover { background: #085e40; transform: translateY(-1px); }
+
+        .traffic-light-container { display: inline-flex; gap: 4px; background: #1e293b; padding: 4px 8px; border-radius: 12px; margin-bottom: 6px; align-items: center; justify-content: center; }
+        .t-dot { width: 10px; height: 10px; border-radius: 50%; background: #475569; transition: 0.3s; }
+        .t-red.active { background: #ef4444; box-shadow: 0 0 8px #ef4444; animation: pulseRed 1.5s infinite; }
+        .t-yellow.active { background: #f59e0b; box-shadow: 0 0 8px #f59e0b; animation: pulseYellow 1.5s infinite; }
+        .t-green.active { background: #10b981; box-shadow: 0 0 8px #10b981; animation: pulseGreen 1.5s infinite; }
+
+        @keyframes pulseRed { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); } 70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
+        @keyframes pulseYellow { 0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); } 70% { box-shadow: 0 0 0 6px rgba(245, 158, 11, 0); } 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); } }
+        @keyframes pulseGreen { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
+
+        .customer-remark-alert { background: #eff6ff; border: 1px solid #bfdbfe; border-left: 4px solid #3b82f6; padding: 12px 15px; border-radius: 8px; margin-bottom: 15px; display: flex; gap: 10px; align-items: center; }
+        .customer-remark-alert span { font-size: 13px; color: #1e40af; font-weight: 600; }
+
+        .extra-meal-box { background: #fffbeb; border: 1px solid #fef3c7; border-radius: 12px; padding: 20px; margin-top: 20px; }
+        .extra-meal-title { font-size: 14px; font-weight: 800; color: #92400e; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+        .extra-meal-desc { font-size: 12px; color: #78350f; line-height: 1.5; margin-bottom: 15px; }
+        .slip-upload-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .btn-upload-slip { background: var(--hero-bg); color: white; border: none; padding: 10px 16px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; }
+        .btn-upload-slip:hover { background: #085e40; }
+        .error-message { color: var(--theme-red); font-weight: bold; margin-bottom: 15px; display: none; }
+        
+        .toast-notification {
+            position: fixed; top: 20px; right: -400px; background: var(--hero-bg); color: white; padding: 15px 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: right 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); z-index: 9999; font-weight: 600; display: flex; align-items: center; gap: 10px;
+        }
+        .toast-notification.admin-alert { background: var(--theme-red); }
+        .toast-notification.show { right: 20px; }
+
+        .dispatch-hub-header { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px 25px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); flex-wrap: wrap; gap: 15px; }
+        .dispatch-hub-title-area { display: flex; flex-direction: column; gap: 4px; }
+        .power-bi-badge-pill { background: #047857; color: white; padding: 3px 10px; border-radius: 4px; font-size: 10px; font-weight: 800; width: fit-content; letter-spacing: 0.5px; }
+        .dispatch-hub-title { font-size: 22px; font-weight: 800; color: var(--text-dark); display: flex; align-items: center; gap: 10px; }
+        .dispatch-hub-desc { font-size: 13px; color: #64748b; }
+        .dispatch-hub-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .btn-reset-data { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+        .btn-live-feed { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+
+        .meal-tracker-container { background: #064e3b; border-radius: 14px; padding: 25px; color: white; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(6, 78, 59, 0.2); }
+        .meal-tracker-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 12px; flex-wrap: wrap; gap: 10px; }
+        .meal-tracker-title { font-size: 14px; font-weight: 700; letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px; color: #e8f5e9; }
+        .auto-calculated-badge { background: #047857; color: #a7f3d0; padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 700; border: 1px solid #059669; }
+        .meal-tracker-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
+        .meal-tracker-box { background: #0a6446; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 20px; text-align: center; }
+        .meal-box-title { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.7); letter-spacing: 0.5px; margin-bottom: 10px; text-transform: uppercase; }
+        .meal-box-count { font-size: 26px; font-weight: 900; color: #ffffff; margin-bottom: 4px; display: flex; align-items: baseline; justify-content: center; gap: 6px; }
+        .meal-box-billed { font-size: 12px; font-weight: 600; color: #a7f3d0; }
+
+        .telemetry-metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .telemetry-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+        .telemetry-label { font-size: 11px; font-weight: 700; color: #64748b; letter-spacing: 0.5px; margin-bottom: 10px; text-transform: uppercase; }
+        .telemetry-value { font-size: 28px; font-weight: 900; color: var(--text-dark); margin-bottom: 4px; }
+        .telemetry-subtext { font-size: 12px; font-weight: 600; color: #0b7a54; }
+
+        .recent-live-order-card { background: #f0fdf4 !important; border: 2px solid #86efac !important; border-top: 5px solid #16a34a !important; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.12) !important; }
+        .recent-live-table-highlight { width: 100%; border-collapse: separate; border-spacing: 0 6px; }
+        .recent-live-table-highlight th { background: #dcfce7 !important; color: #166534 !important; font-weight: 800; border-bottom: 2px solid #86efac !important; }
+        .live-order-row-lightgreen { background-color: #ecfdf5 !important; transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(16, 185, 129, 0.05); }
+        .live-order-row-lightgreen:hover { background-color: #d1fae5 !important; transform: scale(1.005); }
+        .live-order-row-lightgreen td { border-top: 1px solid #bbf7d0 !important; border-bottom: 1px solid #bbf7d0 !important; }
+        .live-order-row-lightgreen td:first-child { border-left: 4px solid #10b981 !important; border-top-left-radius: 6px; border-bottom-left-radius: 6px; }
+        .live-order-row-lightgreen td:last-child { border-right: 1px solid #bbf7d0 !important; border-top-right-radius: 6px; border-bottom-right-radius: 6px; }
+        .btn-ai-wa-action { background: #10b981; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: all 0.2s; box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3); }
+        .btn-ai-wa-action:hover { background: #059669; transform: translateY(-1px); }
+
+        @keyframes fadeInNewRow { from { background-color: #d1fae5; transform: translateY(-5px); } to { background-color: transparent; transform: translateY(0); } }
+        .recent-live-row-new { animation: fadeInNewRow 2s ease-out; }
+
+        /* ----- CUSTOMER MEMO CARD CSS ----- */
+        .memo-card { background-color: #0d3b2e; color: #ffffff; border-radius: 12px; padding: 25px; font-family: sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 15px; position: relative; overflow: hidden; transition: all 0.3s ease; }
+        .memo-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 20px; }
+        .memo-title { font-size: 11px; font-weight: 700; color: #a7f3d0; letter-spacing: 0.5px; }
+        .memo-hub { background: #059669; color: #fff; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 20px; z-index: 2; position: relative; }
+        .memo-latest-box { background: #022c22; border: 1px solid #064e3b; border-radius: 10px; padding: 15px; margin-bottom: 20px; z-index: 2; position: relative; }
+        .memo-latest-top { display: flex; justify-content: space-between; margin-bottom: 12px; }
+        .memo-latest-text { color: #a7f3d0; font-size: 11px; font-weight: 700; display:flex; align-items:center; gap: 6px; }
+        .memo-order-id { background: #059669; color: #fff; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; }
+        .memo-status-row { display: flex; justify-content: space-between; align-items: center; }
+        .memo-status-label { color: #cbd5e1; font-size: 13px; }
+        .memo-status-badge { border: 1px solid #d97706; color: #f59e0b; padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: 700; background: #022c22; }
+        .memo-status-badge.Confirmed { border-color: #10b981; color: #10b981; }
+        .memo-status-badge.Delivery { border-color: #38bdf8; color: #38bdf8; }
+        .memo-row { display: flex; justify-content: space-between; margin-bottom: 12px; z-index: 2; position: relative; }
+        .memo-row span { color: #a7f3d0; font-size: 13px; }
+        .memo-row strong { font-size: 13px; text-align: right; max-width: 65%; word-wrap: break-word; }
+        .memo-total-section { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 25px; z-index: 2; position: relative; }
+        .memo-total-label { color: #a7f3d0; font-size: 10px; font-weight: 700; margin-bottom: 4px; letter-spacing: 0.5px; }
+        .memo-total-val { font-size: 32px; font-weight: 800; color: #6ee7b7; line-height: 1; }
+        .memo-delivery-pill { background: #064e3b; color: #6ee7b7; font-size: 11px; font-weight: 600; padding: 6px 12px; border-radius: 20px; }
+        .memo-gateways { display: flex; gap: 10px; flex-wrap: wrap; z-index: 2; position: relative; }
+        .memo-gateways span { background: #fff; color: #333; font-size: 11px; font-weight: 700; padding: 6px 12px; border-radius: 6px; display: flex; align-items: center; gap: 4px; transition: all 0.3s ease; }
+        
+        .memo-gw-active { background: #88edbb !important; color: #022c22 !important; transform: scale(1.08); box-shadow: 0 0 12px rgba(136, 237, 187, 0.6); border: 2px solid #ffffff; }
+
+        @keyframes pulsingLiveDot { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(136, 237, 187, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(136, 237, 187, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(136, 237, 187, 0); } }
+        .live-pulsing-dot { width: 8px; height: 8px; border-radius: 50%; background-color: #88edbb; display: inline-block; animation: pulsingLiveDot 2s infinite; }
+
+        /* --- NEW ANIMATED CUSTOMER BOOKING HIGHLIGHTS --- */
+        .booking-highlight-confirmed { box-shadow: 0 0 25px rgba(16, 185, 129, 0.4); border: 2px solid #10b981; animation: confirmedPulseGlow 2.5s infinite; }
+        .booking-highlight-delivery { box-shadow: 0 0 25px rgba(56, 189, 248, 0.4); border: 2px solid #38bdf8; animation: deliveryPulseGlow 2.5s infinite; }
+
+        @keyframes confirmedPulseGlow { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); border-color: #10b981; } 70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); border-color: #34d399; } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); border-color: #10b981; } }
+        @keyframes deliveryPulseGlow { 0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.6); border-color: #38bdf8; } 70% { box-shadow: 0 0 0 15px rgba(56, 189, 248, 0); border-color: #7dd3fc; } 100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); border-color: #38bdf8; } }
+
+        .highlight-banner { background: linear-gradient(90deg, #10b981, #059669); color: white; text-align: center; font-size: 11px; font-weight: 800; padding: 6px; letter-spacing: 1px; text-transform: uppercase; margin: -25px -25px 20px -25px; border-top-left-radius: 10px; border-top-right-radius: 10px; }
+        .highlight-banner.delivery { background: linear-gradient(90deg, #0ea5e9, #0284c7); }
+
+        .pagination { display: flex; justify-content: center; gap: 8px; margin-top: 15px; }
+        .page-btn { background: #e2e8f0; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; color: #334155; transition: 0.2s; }
+        .page-btn.active { background: var(--hero-bg); color: white; }
+        .page-btn:hover:not(.active) { background: #cbd5e1; }
+        
+        /* --- MAC OS ADMIN LOGIN CSS --- */
+        .mac-auth-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 75vh;
+            background: radial-gradient(circle at 10% 20%, #1e1b4b 0%, #0f172a 40%, #020617 100%);
+            border-radius: 16px;
+            padding: 20px;
+        }
+        .mac-window-auth {
+            width: 100%;
+            max-width: 400px;
+            background: rgba(30, 41, 59, 0.72);
+            backdrop-filter: blur(35px) saturate(190%);
+            -webkit-backdrop-filter: blur(35px) saturate(190%);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 14px;
+            box-shadow: 0 28px 60px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            overflow: hidden;
+        }
+        .mac-auth-titlebar {
+            height: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+        }
+        .mac-auth-content { padding: 32px 36px 40px; text-align: center; }
+        .avatar-ring {
+            width: 80px; height: 80px; border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.02));
+            padding: 3px; border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            margin: 0 auto 15px auto; display: flex; align-items: center; justify-content: center;
+        }
+        .avatar-inner { width: 100%; height: 100%; border-radius: 50%; background: #334155; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+        .mac-input-group { text-align: left; margin-bottom: 15px; }
+        .mac-input-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; font-weight: 700; color: #94a3b8; display: block; margin-bottom: 6px; }
+        .mac-input-field {
+            width: 100%; height: 40px; background: rgba(15, 23, 42, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 8px;
+            color: #f8fafc; font-size: 14px; padding: 0 12px; outline: none; transition: 0.2s;
+        }
+        .mac-input-field:focus { border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25); background: rgba(15, 23, 42, 0.85); }
+        .mac-auth-btn {
+            width: 100%; height: 42px; background: linear-gradient(180deg, #38bdf8 0%, #0ea5e9 100%);
+            border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: #032030;
+            font-size: 14px; font-weight: 700; cursor: pointer; margin-top: 10px;
+            box-shadow: 0 4px 14px rgba(14, 165, 233, 0.35); transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .mac-auth-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+        @keyframes macShake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-9px); } 40%, 80% { transform: translateX(9px); } }
+        .shake { animation: macShake 0.4s ease; }
+
+        @media (max-width: 1024px) {
+            .hero-left h1 { font-size: 40px; }
+            .hero-section { flex-direction: column; text-align: center; }
+            .hero-left { max-width: 100%; display: flex; flex-direction: column; align-items: center; }
+            .hero-buttons { justify-content: center; }
+            .hero-right { width: 100%; margin-top: 20px; }
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .mobile-menu-btn { display: block; }
+            .header { padding: 15px 20px; flex-wrap: wrap; border-top-left-radius: 0; border-top-right-radius: 0; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #ffffff; padding: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); z-index: 1000; align-items: flex-start; }
+            .nav-links.active-mobile { display: flex; }
+            .nav-item { width: 100%; text-align: left; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+            .btn-header-wa, .btn-share { margin-top: 10px; width: 100%; justify-content: center; }
+            .hero-left h1 { font-size: 32px; }
+            .inner-padding { padding: 20px; }
+            .userform-container { padding: 20px; }
+            .plans-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr !important; }
+            .form-actions { grid-template-columns: 1fr; }
+            .dashboard-header-flex { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .dispatch-hub-header { flex-direction: column; align-items: flex-start; }
+            .dispatch-hub-actions { width: 100%; justify-content: space-between; margin-top: 15px; }
+            .mac-traffic-lights { width: auto; }
+            .top-bar-spacer { display: none; }
+            .top-bar-text { text-align: left; line-height: 1.4; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- SHARE MODAL -->
+<div id="shareModal" class="modal-overlay" style="z-index: 60000;">
+    <div class="modal-card">
+        <h3 style="margin-bottom: 10px; color: var(--text-dark);">📲 Share Tiffins Care</h3>
+        <p style="font-size: 13px; color: #666; margin-bottom: 20px;">Scan the QR code through Google Lens or your phone camera, or copy the link below to easily book a tiffin plan via WhatsApp!</p>
+        <div style="margin-bottom: 20px; text-align: center;">
+            <img id="qrCodeImage" src="" alt="QR Code" style="border: 2px solid #eaeaea; border-radius: 8px; padding: 10px; width: 250px; height: 250px; display: inline-block;">
+        </div>
+        <input type="text" id="shareLinkInput" readonly style="width:100%; text-align:center; font-size:13px; margin-bottom:15px; background: #f8fafc; border: 1px solid #cbd5e1; color: #334155; padding: 10px; border-radius: 6px;">
+        <div class="modal-buttons">
+            <button class="btn-modal-cancel" onclick="closeShareModal()">Close</button>
+            <button class="btn-modal-confirm" onclick="copyShareLink()">📋 Copy Link</button>
+        </div>
+    </div>
+</div>
+
+<!-- MANUAL ENTRY MODAL FOR ADMIN -->
+<div id="adminManualEntryModal" class="modal-overlay" style="z-index: 50000;">
+    <div class="modal-card" style="width: 500px; text-align: left;">
+        <h3 style="font-size: 18px; color: var(--text-dark); margin-bottom: 15px;">➕ Add New Customer (Manual Entry)</h3>
+        
+        <div class="form-group" style="margin-bottom: 12px;">
+            <label style="font-size: 11px; font-weight: 700; color: #334155; margin-bottom: 4px; display:block;">Customer Name *</label>
+            <input type="text" id="adminEntryName" style="height:40px; padding-left: 12px !important;">
+        </div>
+        
+        <div class="form-group" style="margin-bottom: 12px;">
+            <label style="font-size: 11px; font-weight: 700; color: #334155; margin-bottom: 4px; display:block;">Mobile Number *</label>
+            <input type="tel" id="adminEntryMobile" style="height:40px; padding-left: 12px !important;">
+        </div>
+        
+        <div class="form-group" style="margin-bottom: 12px;">
+            <label style="font-size: 11px; font-weight: 700; color: #334155; margin-bottom: 4px; display:block;">Delivery Address *</label>
+            <input type="text" id="adminEntryAddress" style="height:40px; padding-left: 12px !important;">
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div class="form-group" style="margin-bottom: 12px;">
+                <label style="font-size: 11px; font-weight: 700; color: #334155; margin-bottom: 4px; display:block;">Dish Menu</label>
+                <select id="adminEntryCuisine" style="height:40px; padding-left: 12px !important;">
+                    <option value="North Indian Dish">North Indian Dish</option>
+                    <option value="South Indian Dish">South Indian Dish</option>
+                    <option value="Maharashtrian Thali">Maharashtrian Thali</option>
+                </select>
+            </div>
+            <div class="form-group" style="margin-bottom: 12px;">
+                <label style="font-size: 11px; font-weight: 700; color: #334155; margin-bottom: 4px; display:block;">Tiffin Plan</label>
+                <select id="adminEntryPlan" style="height:40px; padding-left: 12px !important;">
+                    <option value="Full Tiffin - ₹3,000 / mo">Full Tiffin - ₹3,000</option>
+                    <option value="Half Tiffin - ₹2,500 / mo">Half Tiffin - ₹2,500</option>
+                    <option value="Morning Breakfast - ₹1,000 / mo">Breakfast - ₹1,000</option>
+                    <option value="Trial Meal Single - ₹120 / meal">Trial - ₹120</option>
+                </select>
+            </div>
+            <div class="form-group" style="margin-bottom: 12px;">
+                <label style="font-size: 11px; font-weight: 700; color: #334155; margin-bottom: 4px; display:block;">Delivery Shift</label>
+                <select id="adminEntryShift" style="height:40px; padding-left: 12px !important;">
+                    <option value="Morning Shift">Morning Shift</option>
+                    <option value="Evening Shift">Evening Shift</option>
+                    <option value="Both Shifts">Both Shifts</option>
+                </select>
+            </div>
+            <div class="form-group" style="margin-bottom: 12px;">
+                <label style="font-size: 11px; font-weight: 700; color: #334155; margin-bottom: 4px; display:block;">Payment Mode</label>
+                <select id="adminEntryPayment" style="height:40px; padding-left: 12px !important;">
+                    <option value="Cash">Cash</option>
+                    <option value="PhonePe">PhonePe</option>
+                    <option value="GPay">GPay</option>
+                    <option value="Paytm">Paytm</option>
+                </select>
+            </div>
+            <div class="form-group" style="margin-bottom: 12px;">
+                <label style="font-size: 11px; font-weight: 700; color: #334155; margin-bottom: 4px; display:block;">Initial Status</label>
+                <select id="adminEntryStatus" style="height:40px; padding-left: 12px !important;">
+                    <option value="Confirmed">Confirmed</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Delivery on Way">Delivery on Way</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="modal-buttons" style="margin-top: 15px;">
+            <button class="btn-modal-cancel" onclick="closeManualEntryModal()">Cancel</button>
+            <button class="btn-modal-confirm" onclick="saveManualEntry()">Save Entry</button>
+        </div>
+    </div>
+</div>
+
+<div id="slipViewModal" class="slip-view-modal">
+    <div class="slip-view-card">
+        <h3 style="margin-bottom: 15px; color: var(--text-dark);">📄 Customer Payment Slip</h3>
+        <div class="slip-image-container">
+            <img id="slipImagePreview" />
+            <span id="slipNoImageText" style="color: #64748b; font-size: 13px;">No preview available</span>
+        </div>
+        <button class="btn-terms-close" onclick="closeSlipViewModal()">Close View</button>
+    </div>
+</div>
+
+<!-- THERMAL PRINT TEMPLATE (DISPLAYED SAFELY OFFSCREEN/HIDDEN FOR CAPTURE) -->
+<div id="thermalModal" class="thermal-modal-overlay">
+    <div class="thermal-modal-card">
+        <h3 style="margin-bottom: 15px; color: var(--text-dark);">🖨️ Thermal Invoice Generated</h3>
+        <div id="thermalReceiptBox" class="thermal-receipt">
+            <div class="thermal-center thermal-bold" style="font-size: 14px;">TIFFINS CARE</div>
+            <div class="thermal-center">FSSAI Registered Kitchen</div>
+            <div class="thermal-center">Manavnagar, Dighori, Nagpur</div>
+            <div class="thermal-center">Ph: +91 9356688361</div>
+            <div class="thermal-line"></div>
+            <div class="thermal-flex">
+                <span>Date: <span id="receiptDate">06/09/2026</span></span>
+                <span>Time: <span id="receiptTime">02:30 AM</span></span>
+            </div>
+            <div class="thermal-flex">
+                <span>Order ID: <span id="receiptOrderId">TC-2026-001-01</span></span>
+                <span>Status: PENDING</span>
+            </div>
+            <div class="thermal-line"></div>
+            <div><b>Customer:</b> <span id="receiptCustomerName">-</span></div>
+            <div><b>Mobile:</b> <span id="receiptCustomerMobile">-</span></div>
+            <div><b>Delivery Address:</b> <span id="receiptCustomerAddress">-</span></div>
+            <div class="thermal-line"></div>
+            <div class="thermal-bold">ITEM DESCRIPTION:</div>
+            <div class="thermal-flex">
+                <span id="receiptPlanDesc">Full Tiffin Plan</span>
+                <span id="receiptPlanPrice">₹<span class="dyn-price-full">3,000</span></span>
+            </div>
+            <div style="font-size: 11px; color: #444; margin-top: 2px;">• Dish Type: <span id="receiptCuisine">-</span></div>
+            <div style="font-size: 11px; color: #444;">• Payment Mode: <span id="receiptPayment">-</span></div>
+            <div class="thermal-line"></div>
+            <div class="thermal-flex thermal-bold" style="font-size: 13px;">
+                <span>TOTAL AMOUNT:</span>
+                <span id="receiptTotalAmount">₹<span class="dyn-price-full">3,000</span></span>
+            </div>
+            <div class="thermal-line"></div>
+            <div class="thermal-center" style="font-size: 10px; font-style: italic;">
+                * Advance payment is strictly non-refundable.<br>
+                Thank you for ordering with Tiffins Care!
+            </div>
+        </div>
+        <div class="thermal-actions">
+            <button class="btn-thermal" onclick="printThermalDirect()">🖨️ Print Direct</button>
+            <button class="btn-thermal pdf" onclick="downloadPDFReceipt()">📥 Download PDF</button>
+            <button class="btn-thermal jpeg" onclick="downloadJPEGReceipt()">📷 Save as JPEG</button>
+            <button class="btn-thermal wa" onclick="shareWhatsAppReceipt()">💬 Share on WhatsApp</button>
+        </div>
+        <button class="btn-thermal-close" onclick="closeThermalModal()">Close & Go to Dashboard</button>
+    </div>
+</div>
+
+<div id="termsModal" class="terms-modal-overlay">
+    <div class="terms-modal-card">
+        <h3>🛡️ Tiffins Care Terms</h3>
+        <p>1. <b>Advance Payment Policy:</b> Advance booking amount collected for Half Tiffin (₹<span class="dyn-price-half">2,500</span>), Full Tiffin (₹<span class="dyn-price-full">3,000</span>), Breakfast (₹<span class="dyn-price-break">1,000</span>), and Trial Meal (₹<span class="dyn-price-trial">120</span>) is strictly non-refundable once order processing/kitchen slots are assigned.</p>
+        <p>2. <b>Delivery Timings:</b> Meals are prepared fresh daily using RO water and zero preservatives, dispatched promptly to Manavnagar, Dighori, Nagpur.</p>
+        <p>3. <b>Sunday Closure:</b> Kitchen operations remain closed on Sundays.</p>
+        <button class="btn-terms-close" onclick="closeTermsModal()">Close Terms</button>
+    </div>
+</div>
+
+<div id="confirmModal" class="modal-overlay">
+    <div class="modal-card">
+        <h3>Are you sure?</h3>
+        <p>Do you want to confirm, generate thermal invoice, and save this booking?</p>
+        <div class="modal-buttons">
+            <button class="btn-modal-cancel" onclick="closeModal()">Cancel</button>
+            <button class="btn-modal-confirm" onclick="executeBookingSave()">Confirm & Print</button>
+        </div>
+    </div>
+</div>
+
+<div id="notificationToast" class="toast-notification">
+    <span id="toastIcon">✅</span> <span id="toastMessage">Your order is confirmed!</span>
+</div>
+
+<div class="window">
+    
+    <!-- LOCKED STICKY HEADER WRAPPER -->
+    <div class="sticky-header-wrapper">
+        <div class="top-bar">
+            <div class="mac-traffic-lights" title="Secure Window Mode">
+                <span class="mac-dot mac-close"></span>
+                <span class="mac-dot mac-minimize"></span>
+                <span class="mac-dot mac-maximize"></span>
+            </div>
+            <!-- ADDED CALL AND WHATSAPP ICONS -->
+            <div class="top-bar-text" style="display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                <a href="tel:+919356688361" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 5px; transition: 0.2s;" onmouseover="this.style.color='var(--mint-highlight)'" onmouseout="this.style.color='white'">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    Call
+                </a>
+                <a href="https://wa.me/919356688361" target="_blank" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 5px; transition: 0.2s;" onmouseover="this.style.color='var(--mint-highlight)'" onmouseout="this.style.color='white'">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                    WhatsApp: 9356688361
+                </a>
+            </div>
+            <div class="top-bar-spacer"></div>
+        </div>
+
+        <header class="header">
+            <div class="logo-container" onclick="showTab('home')">
+                <div class="logo-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
+                        <path d="M7 2v20"></path>
+                        <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path>
+                    </svg>
+                </div>
+                <div class="logo-text-block">
+                    <div class="logo-title">TIFFINS CARE</div>
+                    <div class="logo-subtitle">
+                        <span class="blinking-pin">📍</span> Delivering Fresh Homemade Tiffins Across Manavnagar, Dighori, Nagpur
+                    </div>
+                </div>
+            </div>
+
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+
+            <!-- UNIFIED NAVIGATION LINKS -->
+            <nav class="nav-links" id="mainNavLinks">
+                <button class="nav-item active" onclick="showTab('home')">Menu & Pricing</button>
+                <button class="nav-item" onclick="showTab('about-page')">About Us</button>
+                <button class="nav-item" id="navUnifiedBookBtn" onclick="checkOrderAccess()">Book Tiffin</button>
+                <button class="nav-item" onclick="handleReviewsClick()">Reviews</button>
+
+                <button class="nav-item" onclick="checkAdminAccess()" style="color: var(--hero-bg); font-weight: 800;">Admin Panel 🔒</button>
+                
+                <button class="nav-item" id="navSignOutBtn" style="display: none;" onclick="logoutCustomer()">Sign Out</button>
+                <button class="nav-item" id="navAdminSignOutBtn" style="display: none;" onclick="logoutAdmin()">Admin Sign Out</button>
+                
+                <button class="btn-share" onclick="openShareModal()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                    Share
+                </button>
+            </nav>
+        </header>
+    </div>
+
+    <div id="home" class="content active">
+        <div class="hero-section">
+            <div class="hero-left">
+                <div class="hero-badge">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+                    100% PURE, HYGIENIC & HOMELY MEALS
+                </div>
+                <h1 style="font-size: 38px;">आमच्या घरगुती टिफिन सेवेमध्ये <span class="highlight">आपले स्वागत आहे!</span></h1>
+                <p>व्यस्त जीवनशैलीमध्ये तुम्हाला रोजच्या जेवणात घरच्या जेवणाची चव, पोषण आणि आपुलकी मिळावी यासाठी आम्ही ही सेवा सुरू केली आहे. नोकरदार, विद्यार्थी आणि ज्येष्ठ नागरिकांसाठी आमचा टिफिन एक उत्तम पर्याय आहे.</p>
+                <div class="hero-buttons">
+                    <button class="btn-subscribe" onclick="checkOrderAccess()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--hero-bg)" stroke="var(--hero-bg)" stroke-width="1"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        Book Tiffin / Sign In
+                    </button>
+                </div>
+            </div>
+
+            <div class="hero-right">
+                <div class="plans-outer-card">
+                    <div class="plans-header">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.41l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.41zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg>
+                        SUBSCRIPTION PLANS SUMMARY
+                    </div>
+                    <div class="plans-grid">
+                        <div class="plan-item">
+                            <div class="plan-title">HALF TIFFIN PLAN</div>
+                            <div class="plan-price">₹<span id="priceDisplayHalf">2,500</span> <span class="period">/mo</span></div>
+                            <div class="plan-desc">1 Sabzi, 4 Chapatis, Dal & Rice</div>
+                        </div>
+                        <div class="plan-item">
+                            <div class="plan-title">FULL TIFFIN PLAN</div>
+                            <div class="plan-price">₹<span id="priceDisplayFull">3,000</span> <span class="period">/mo</span></div>
+                            <div class="plan-desc">2 Sabzis, 6 Chapatis, Dal, Rice & Salad</div>
+                        </div>
+                        <div class="plan-item">
+                            <div class="plan-title">Morning Breakfast</div>
+                            <div class="plan-desc" style="margin-bottom: 8px;">Poha, Idli, Upma, Dosa</div>
+                            <div class="plan-price">₹<span id="priceDisplayBreak">1,000</span> <span class="period">/mo</span></div>
+                        </div>
+                        <div class="plan-item">
+                            <div class="plan-title">Trial Meal Single</div>
+                            <div class="plan-desc" style="margin-bottom: 8px;">Complete Lunch/Dinner</div>
+                            <div class="plan-price">₹<span id="priceDisplayTrial">120</span> <span class="period">/meal</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menus-section">
+            <div class="menus-badge">AUTHENTIC FRESH MENUS</div>
+            <h2>North, South & Maharashtrian Specialties</h2>
+            <p>Prepared with pure RO water, premium oils, farm-fresh vegetables & zero preservatives.</p>
+            
+            <div class="menus-grid">
+                <!-- North Indian -->
+                <div class="menu-card">
+                    <div style="width: 100%; height: 160px; border-radius: 12px; margin-bottom: 20px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 10px rgba(0,0,0,0.05); background: #f1f5f9; display: flex; align-items: center; justify-content: center;">
+                        <img src="north-indian.jpg" alt="North Indian Dish" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/North_Indian_Thali.jpg/600px-North_Indian_Thali.jpg';">
+                    </div>
+                    <h3>North Indian Menu</h3>
+                    <p>Rich curries, fresh wheat rotis & jeera rice</p>
+                    <div class="menu-divider"></div>
+                    <ul class="menu-items-list">
+                        <li><span class="check-icon">✓</span> Paneer Butter Masala / Aloo Gobhi</li>
+                        <li><span class="check-icon">✓</span> Dal Tadka / Dal Fry / Panchmel Dal</li>
+                        <li><span class="check-icon">✓</span> 100% Whole Wheat Phulkas & Ghee Rotis</li>
+                        <li><span class="check-icon">✓</span> Steamed Basmati / Jeera Pulao</li>
+                    </ul>
+                </div>
+
+                <!-- South Indian -->
+                <div class="menu-card">
+                    <div style="width: 100%; height: 160px; border-radius: 12px; margin-bottom: 20px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 10px rgba(0,0,0,0.05); background: #f1f5f9; display: flex; align-items: center; justify-content: center;">
+                        <img src="south-indian.jpg" alt="South Indian Dish" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Dosa_at_Sri_Ganesh_Bhavan.jpg/600px-Dosa_at_Sri_Ganesh_Bhavan.jpg';">
+                    </div>
+                    <h3>South Indian Menu</h3>
+                    <p>Traditional sambar, rasam, kootu & curd rice</p>
+                    <div class="menu-divider"></div>
+                    <ul class="menu-items-list">
+                        <li><span class="check-icon">✓</span> Drumstick Madras Sambar & Mysore Rasam</li>
+                        <li><span class="check-icon">✓</span> Avial / Veg Poriyal / Cabbage Kootu</li>
+                        <li><span class="check-icon">✓</span> Sona Masoori Rice & Curd Rice (Thayir Sadam)</li>
+                        <li><span class="check-icon">✓</span> Coconut Chutney & Appalam Papad</li>
+                    </ul>
+                </div>
+
+                <!-- Maharashtrian Thali Image -->
+                <div class="menu-card">
+                    <div style="width: 100%; height: 160px; border-radius: 12px; margin-bottom: 20px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 10px rgba(0,0,0,0.05); background: #f8fafc; display: flex; align-items: center; justify-content: center;">
+                        <img src="Gemini_Generated_Image_h65ikmh65ikmh65i.png" alt="Maharashtrian Thali" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Maharashtrian_Thali.jpg/600px-Maharashtrian_Thali.jpg';">
+                    </div>
+                    <h3>Maharashtrian Thali</h3>
+                    <p>Traditional homely thali with perfectly balanced local Maharashtrian spices</p>
+                    <div class="menu-divider"></div>
+                    <ul class="menu-items-list">
+                        <li><span class="check-icon">✓</span> Sprouted Matki Usal & Batata Bhaji</li>
+                        <li><span class="check-icon">✓</span> Authentic Varan Bhaat with Ghee</li>
+                        <li><span class="check-icon">✓</span> Hot, Soft Chapatis / Ghadichi Poli</li>
+                        <li><span class="check-icon">✓</span> Fresh Koshimbir, Lemon & Thecha</li>
+                    </ul>
+                </div>
+                
+                <!-- Tarri Poha Image -->
+                <div class="menu-card">
+                    <div style="width: 100%; height: 160px; border-radius: 12px; margin-bottom: 20px; overflow: hidden; border: 1px solid #e2e8f0; background: #f8fafc; display: flex; align-items: center; justify-content: center;">
+                        <img src="poha_3.JPG" alt="Nagpur Tarri Poha" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.src='poha-3.jpg';">
+                    </div>
+                    <h3>Nagpur Tarri Poha</h3>
+                    <p>Famous Nagpur style spicy and satisfying morning breakfast</p>
+                    <div class="menu-divider"></div>
+                    <ul class="menu-items-list">
+                        <li><span class="check-icon">✓</span> Freshly Steamed Poha</li>
+                        <li><span class="check-icon">✓</span> Signature Spicy Chana Tarri</li>
+                        <li><span class="check-icon">✓</span> Served with chopped onions & lemon</li>
+                    </ul>
+                </div>
+
+                <!-- Authentic Puran Poli -->
+                <div class="menu-card">
+                    <div style="width: 100%; height: 160px; border-radius: 12px; margin-bottom: 20px; overflow: hidden; border: 1px solid #e2e8f0; background: #f8fafc; display: flex; align-items: center; justify-content: center;">
+                        <img src="puran poli_3.JPG" alt="Puran Poli" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.src='puran-poli-3.jpg';">
+                    </div>
+                    <h3>Authentic Puran Poli</h3>
+                    <p>Traditional sweet flatbread packed with delicious chana dal & jaggery</p>
+                    <div class="menu-divider"></div>
+                    <ul class="menu-items-list">
+                        <li><span class="check-icon">✓</span> Soft, melt-in-mouth texture</li>
+                        <li><span class="check-icon">✓</span> Roasted gently with pure Desi Ghee</li>
+                        <li><span class="check-icon">✓</span> Authentic festive Maharashtrian recipe</li>
+                    </ul>
+                </div>
+
+                <!-- Sambhar Wadi & Besan Vadi Images combined -->
+                <div class="menu-card">
+                    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                        <div style="flex: 1; height: 160px; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; background: #f8fafc; display: flex; align-items: center; justify-content: center;">
+                            <img src="sambhar wadi_3.JPG" alt="Sambhar Wadi" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.src='sambhar-wadi-3.jpg';">
+                        </div>
+                        <div style="flex: 1; height: 160px; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; background: #f8fafc; display: flex; align-items: center; justify-content: center;">
+                            <img src="besan_3.JPG" alt="Besan Vadi" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.src='besan-3.jpg';">
+                        </div>
+                    </div>
+                    <h3>Vidarbha Special Wadis</h3>
+                    <p>Crispy savory rolls and bites filled with local spices and herbs</p>
+                    <div class="menu-divider"></div>
+                    <ul class="menu-items-list">
+                        <li><span class="check-icon">✓</span> Crispy deep-fried Sambhar Wadi</li>
+                        <li><span class="check-icon">✓</span> Soft and spicy Kothimbir/Besan Vadi</li>
+                        <li><span class="check-icon">✓</span> Ideal savory side dish or snack</li>
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- DYNAMIC ANIMATED REVIEW SECTION ON HOMEPAGE -->
+        <div class="menus-section" style="background: #f8fafc; padding: 40px; border-top: 1px solid #e2e8f0; margin-top: 40px;">
+            <div class="menus-badge" style="background: #e0f2fe; color: #0284c7;">LIVE GOOGLE REVIEWS</div>
+            <h2 style="font-size: 28px; margin-bottom: 5px;">What Our Customers Say</h2>
+            <div class="review-container live-review-feed-target">
+                <!-- Reviews injected dynamically -->
+            </div>
+            <button class="btn-standard" style="width: auto; padding: 10px 20px; background: #4285F4; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; border: none; cursor: pointer; color: white;" onclick="window.open('https://g.page/r/CXKAVj06tNdQEAE/review', '_blank')">
+                <span style="background:white; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; color:#4285F4; font-weight:bold; font-size:14px;">G</span> Post a Review
+            </button>
+        </div>
+    </div>
+
+    <!-- SEPARATE DEDICATED ABOUT PAGE VIEW -->
+    <div id="about-page" class="content inner-padding">
+        <h2 style="color: var(--hero-bg); margin-bottom: 20px;">About Tiffins Care</h2>
+
+        <div class="card" style="margin-bottom: 20px;">
+            <!-- MARATHI CONTENT INSERTED HERE -->
+            <div style="background: #f8fafc; padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 25px; line-height: 1.8; color: #334155;">
+                <h3 style="color: var(--hero-bg); margin-bottom: 15px; font-size: 20px;">आमच्या वैशिष्ट्यपूर्ण सेवा</h3>
+                
+                <div style="margin-bottom: 15px;">
+                    <strong style="color: var(--text-dark); display: block; font-size: 15px; margin-bottom: 4px;">१. १००% आरोग्यदायी आणि स्वच्छ जेवण</strong>
+                    <p style="font-size: 14px; color: #475569;">तुमचे आरोग्य हीच आमची प्राथमिकता आहे. आम्ही कमी तेलात, ताज्या भाज्या, गव्हाची चपाती आणि चांगल्या दर्जाच्या मसाल्यांचा वापर करून जेवण बनवतो. यात कोणतेही कृत्रिम रंग किंवा प्रिझर्व्हेटिव्ह्ज वापरले जात नाहीत, ज्यामुळे हे जेवण पचायला हलके आणि पौष्टिक असते.</p>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <strong style="color: var(--text-dark); display: block; font-size: 15px; margin-bottom: 4px;">२. आर.ओ. (RO) फिल्टर पाण्याचा वापर</strong>
+                    <p style="font-size: 14px; color: #475569;">स्वच्छता आणि सुरक्षिततेसाठी आम्ही स्वयंपाकासाठी, भाज्या धुण्यासाठी आणि पिण्यासाठी केवळ RO शुद्ध पाण्याचा वापर करतो, जेणेकरून तुम्हाला पूर्णपणे सुरक्षित अन्न मिळेल.</p>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <strong style="color: var(--text-dark); display: block; font-size: 15px; margin-bottom: 4px;">३. वेळेवर डिलिव्हरीची हमी</strong>
+                    <p style="font-size: 14px; color: #475569;">आम्ही तुमच्या वेळेचे महत्त्व जाणतो. दुपारी ऑफिसमध्ये असो किंवा रात्री घरी, आमचे टिफिन तुम्हाला अगदी वेळेवर आणि गरमागरम पोहोचवले जातात.</p>
+                </div>
+
+                <div>
+                    <strong style="color: var(--text-dark); display: block; font-size: 15px; margin-bottom: 4px;">४. परवडणारे आणि लवचिक दर (Flexible Prices)</strong>
+                    <p style="font-size: 14px; color: #475569; margin-bottom: 8px;">तुमच्या गरजेनुसार आम्ही विविध प्लॅन्स उपलब्ध करून देतो:</p>
+                    <ul style="list-style-type: disc; padding-left: 20px; font-size: 14px; color: #475569; display: flex; flex-direction: column; gap: 4px;">
+                        <li><b>मासिक प्लॅन (Monthly):</b> रोजच्या टिफिनसाठी वाजवी दरात विशेष सवलत.</li>
+                        <li><b>साप्ताहिक प्लॅन (Weekly):</b> थोड्या दिवसांच्या गरजेसाठी उत्तम.</li>
+                        <li><b>प्रति टिफिन पर्याय:</b> तुम्हाला हवा असेल तेव्हाच ऑर्डर करा.</li>
+                        <li><b>जेवणातील पर्याय:</b> तुमच्या आवडीनुसार पूर्ण थाळी किंवा हलके जेवण निवडण्याची सोय.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <p style="font-size: 15px; line-height: 1.6; margin-bottom: 20px; color: #334155;">
+                Welcome to a culinary experience crafted with love, care, and the deep-rooted tradition of wholesome, home-cooked food. Our tiffin service was born out of a simple, beautiful vision: to bring the comfort, warmth, and unmistakable flavor of a home kitchen straight to your doorstep, no matter where life takes you.
+            </p>
+            
+            <h3 style="color: var(--text-dark); margin-bottom: 10px;">Our Story</h3>
+            <p style="font-size: 14px; line-height: 1.6; margin-bottom: 20px; color: #475569;">
+                Our journey began in a family kitchen where meals were never just about sustenance—they were a celebration of togetherness, tradition, and love. As our founders moved away from home for studies and careers, they quickly realized how difficult it was to find daily food that was both delicious and genuinely healthy. Commercial restaurant meals were often too oily, too heavy, or lacking the authentic taste of home. Missing the comfort of freshly prepared, balanced thalis, the idea was sparked: why not recreate that exact feeling for everyone longing for a good, satisfying meal? Starting with a modest kitchen and a handful of cherished family recipes, we launched our tiffin service to serve students, working professionals, and busy families who deserve real, nourishing food every single day.
+            </p>
+        </div>
+
+        <div class="grid-standard">
+            <div class="card">
+                <h3>Our Kitchen</h3>
+                <p>We are dedicated to providing the best quality daily meals. Whether you are a student, a working professional, or simply missing home-cooked food, Tiffins Care serves nutritious Maharashtrian, North Indian, and South Indian cuisines.</p>
+                <p><strong>📍 Address:</strong> Manavnagar, Dighori, Nagpur, Maharashtra 440034</p>
+                <p><strong>📞 Contact:</strong> +91 9356688361</p>
+                <p><strong>✅ FSSAI Registration:</strong> Certified Kitchen ensuring complete safety and hygiene.</p>
+            </div>
+            
+            <!-- DYNAMIC ANIMATED REVIEW SECTION -->
+            <div class="card" style="text-align: center; position: relative; overflow: hidden;">
+                <h3 style="margin-bottom: 5px;">Google Customer Reviews</h3>
+                <div class="review-container live-review-feed-target">
+                    <!-- Reviews injected dynamically via JavaScript -->
+                </div>
+                <button class="btn-standard" style="width: auto; padding: 10px 20px; background: #4285F4; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; border: none; cursor: pointer; color: white;" onclick="window.open('https://g.page/r/CXKAVj06tNdQEAE/review', '_blank')">
+                    <span style="background:white; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; color:#4285F4; font-weight:bold; font-size:14px;">G</span> Leave a Review
+                </button>
+            </div>
+            
+        </div>
+    </div>
+
+    <div id="contact" class="content inner-padding">
+        <h2 style="color: var(--hero-bg); margin-bottom: 20px;">Contact Us</h2>
+        <div class="card" style="max-width: 600px;">
+            <p><strong>Address:</strong> Manavnagar, Dighori, Nagpur, Maharashtra 440034</p>
+            <p><strong>Mobile:</strong> +91 9356688361</p>
+            <p><strong>Business Hours:</strong> Monday - Saturday (Sunday Closed)</p>
+        </div>
+    </div>
+
+    <div id="order" class="content inner-padding">
+        <div class="userform-container">
+            <div class="userform-header">
+                <div>
+                    <div class="userform-title-tag">Customer Registration</div>
+                    <div class="userform-title">Tiffin Booking & Enquiry Userform</div>
+                    <div class="userform-subtitle">Fill your details below to schedule lunch/dinner delivery at Manavnagar, Dighori, Nagpur.</div>
+                </div>
+                <div class="autosave-pill">
+                    ⚡ Thermal Invoice Ready
+                </div>
+            </div>
+
+            <form id="orderForm">
+                <div class="form-row">
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label>FULL NAME *</label>
+                        <div class="input-with-icon">
+                            <span class="input-icon">👤</span>
+                            <input type="text" id="custName" required placeholder="" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label>MOBILE NUMBER (WHATSAPP) *</label>
+                        <div class="input-with-icon">
+                            <span class="input-icon">📞</span>
+                            <input type="tel" id="custMobile" required placeholder="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Enter Address *</label>
+                    <div class="input-with-icon">
+                        <span class="input-icon">📍</span>
+                        <input type="text" id="custAddress" required placeholder="" value="">
+                    </div>
+                </div>
+
+                <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr 1fr;">
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label>DISH MENU</label>
+                        <select id="cuisineType">
+                            <option value="North Indian Dish">North Indian Dish</option>
+                            <option value="South Indian Dish">South Indian Dish</option>
+                            <option value="Maharashtrian Thali">Maharashtrian Thali</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label>TIFFIN PLAN</label>
+                        <select id="planType">
+                            <!-- Options injected dynamically by renderPricing() -->
+                            <option value="Full Tiffin - ₹3,000 / mo">Full Tiffin - ₹3,000 / mo</option>
+                            <option value="Half Tiffin - ₹2,500 / mo">Half Tiffin - ₹2,500 / mo</option>
+                            <option value="Morning Breakfast - ₹1,000 / mo">Morning Breakfast - ₹1,000 / mo</option>
+                            <option value="Trial Meal Single - ₹120 / meal">Trial Meal Single - ₹120 / meal</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label>DELIVERY SHIFT</label>
+                        <select id="shiftType">
+                            <option value="Morning Shift">Morning Shift</option>
+                            <option value="Evening Shift">Evening Shift</option>
+                            <option value="Both Shifts">Both Shifts</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label>PAYMENT MODE</label>
+                        <select id="paymentMode">
+                            <option value="PhonePe">PhonePe</option>
+                            <option value="GPay">GPay</option>
+                            <option value="Paytm">Paytm</option>
+                            <option value="Cash">Cash</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="policy-box" style="margin-top: 20px;">
+                    <div class="policy-icon">⚠️</div>
+                    <div class="policy-text">
+                        <b>Advance Payment Policy:</b> Advance booking amount for Half Tiffin, Full Tiffin, Breakfast & Trial Meal is strictly <u>non-refundable</u>.
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-submit-booking" onclick="openConfirmModal()">
+                        🖨️ Confirm & Generate Thermal Invoice
+                    </button>
+                    <button type="button" id="whatsappBtn" class="btn-wa-booking" onclick="orderViaWhatsAppAIBot()">
+                        🤖 Order via WhatsApp AI Chatbot
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- CUSTOMER SIGN IN (OPENS WHEN BOOK TIFFIN CLICKED IF LOGGED OUT) -->
+    <div id="customerLogin" class="content inner-padding">
+        <div class="login-wrapper">
+            <div class="login-card-box">
+                <h2>Customer Sign In</h2>
+                <p id="loginMessage" class="error-message">Please sign in with your mobile number and CAPTCHA to proceed.</p>
+                <p>Enter your 10-digit mobile number and verify the CAPTCHA to access your specific account history or place a new booking.</p>
+                
+                <input type="tel" id="loginMobileInput" placeholder="Enter 10-digit Mobile" maxlength="10">
+                
+                <div class="captcha-box">
+                    <span class="captcha-code" id="captchaDisplay">A3K9</span>
+                    <button type="button" class="captcha-refresh" onclick="generateCaptcha()">🔄 Refresh</button>
+                </div>
+                <input type="text" id="captchaInput" placeholder="Enter CAPTCHA Code" style="margin-bottom: 15px;">
+
+                <button class="btn-standard" onclick="processLogin()">Sign In & Continue</button>
+
+                <div class="policy-embed-box">
+                    <div class="policy-embed-header">
+                        <span>IMPORTANT DASHBOARD NOTICE</span>
+                        <span style="background:#dc2626; color:white; padding:1px 6px; border-radius:3px; font-size:9px;">NON-REFUNDABLE</span>
+                    </div>
+                    <div class="policy-embed-body">
+                        Advance payment collected for Half Tiffin (₹<span class="dyn-price-half">2,500</span>), Full Tiffin (₹<span class="dyn-price-full">3,000</span>), Breakfast (₹<span class="dyn-price-break">1,000</span>), and Trial Meal (₹<span class="dyn-price-trial">120</span>) is strictly non-refundable once order processing/kitchen slots are assigned.
+                    </div>
+                    <div>
+                        <button type="button" class="terms-footer-link" onclick="openTermsModal()">🛡️ Tiffins Care Terms</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="customerDashboard" class="content inner-padding">
+        <div class="dashboard-header-flex">
+            <div>
+                <h2 style="color: var(--text-dark); margin-bottom: 5px;">Live Browser Account Dashboard</h2>
+                <p style="color: #555;">Active Account Mobile: <strong id="displayUserMobile" style="color: var(--hero-bg);"></strong></p>
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <button onclick="resetOrderFormUI(); showTab('order');" style="background: var(--hero-bg); color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 13px;">➕ Book New Tiffin</button>
+                    <button onclick="logoutCustomer()" style="background: #fff0f0; color: #dc2626; border: 1px solid #fecaca; padding: 8px 16px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 13px;">🚪 Customer Sign Out</button>
+                </div>
+            </div>
+            
+            <div class="round-clock-container">
+                <div class="round-clock" id="roundClockDisplay">02:00</div>
+                <div>
+                    <div class="clock-label">Session Auto-Logout</div>
+                    <div class="clock-time" id="clockTimeRemaining">Remaining Time</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="customerRemarkBannerContainer"></div>
+
+        <div class="extra-meal-box">
+            <div class="extra-meal-title">📦 Extra Tiffins & Payment Slip Upload Notice</div>
+            <div class="extra-meal-desc">
+                If you placed extra tiffins, please pay for the extra meal immediately and report to the owner before dispatch time. Upload your payment screenshot/slip below so it caches and syncs directly to the Admin panel.
+            </div>
+            <div class="slip-upload-row">
+                <input type="file" id="slipFileInput" class="slip-file-input" accept="image/*,application/pdf">
+                <button class="btn-upload-slip" onclick="uploadPaymentSlip()">📤 Upload Payment Slip</button>
+            </div>
+            <div id="uploadSlipStatus" style="font-size: 11px; color: #16a34a; font-weight: 700; margin-top: 6px;"></div>
+        </div>
+
+        <div class="card" style="margin-top: 20px;">
+            <h3 style="font-size: 16px; color: var(--hero-bg); margin-bottom: 15px;">💳 Log Manual Payment</h3>
+            <p style="font-size: 13px; color: #64748b; margin-bottom: 15px;">Manually log your payment amount. This will automatically sync to the Admin Ledger.</p>
+            <div class="form-row">
+                <div class="form-group" style="margin-bottom:0;">
+                    <label>Amount Paid (₹) *</label>
+                    <input type="number" id="manualPaymentAmount" placeholder="e.g. 3000">
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                    <label>Payment Mode *</label>
+                    <select id="manualPaymentMode">
+                        <option value="UPI / GPay / PhonePe">UPI / GPay / PhonePe</option>
+                        <option value="Cash">Cash</option>
+                        <option value="Bank Transfer">Bank Transfer</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn-wa-booking" style="width: 100%; margin-top: 15px; border-radius: 8px;" onclick="submitManualPayment()">Submit Payment Details</button>
+
+            <h3 style="font-size: 16px; margin-top: 25px; margin-bottom: 15px;">Your Payment History</h3>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date & Time</th>
+                            <th>Amount Paid</th>
+                            <th>Mode of Payment</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customerPaymentTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="grid-standard" style="margin-top: 20px;">
+            <div>
+                <div id="activeBookingContainer">
+                    <!-- HTML generated dynamically by JS -->
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3 style="font-size: 16px;">Cached Multi-Account History & Re-Order</h3>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Plan</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customerHistoryTable">
+                            </tbody>
+                    </table>
+                </div>
+                <!-- Pagination Controls -->
+                <div id="historyPaginationContainer" class="pagination"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MACINTOSH INSPIRED ADMIN CONSOLE LOGIN MODAL / VIEW -->
+    <div id="adminLogin" class="content inner-padding" style="display: none; align-items: center; justify-content: center; min-height: 80vh;">
+        <div class="mac-window" style="width: 100%; max-width: 440px; background: rgba(30, 41, 59, 0.85); backdrop-filter: blur(35px) saturate(190%); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 14px; box-shadow: 0 28px 60px rgba(0, 0, 0, 0.55); overflow: hidden;" id="macAuthBox">
+            <div class="mac-titlebar" style="height: 40px; background: rgba(255, 255, 255, 0.04); border-bottom: 1px solid rgba(255, 255, 255, 0.06); display: flex; align-items: center; justify-content: space-between; padding: 0 16px;">
+                <div class="traffic-lights" style="display: flex; gap: 8px;">
+                    <div class="dot dot-close" style="width: 12px; height: 12px; border-radius: 50%; background: #ff5f56; cursor: pointer;" onclick="showTab('home')"></div>
+                    <div class="dot dot-minimize" style="width: 12px; height: 12px; border-radius: 50%; background: #ffbd2e;"></div>
+                    <div class="dot dot-maximize" style="width: 12px; height: 12px; border-radius: 50%; background: #27c93f;"></div>
+                </div>
+                <div style="font-size: 12px; font-weight: 600; color: #94a3b8;">macOS System Authentication</div>
+                <div style="width: 52px;"></div>
+            </div>
+            <div style="padding: 30px; text-align: center;">
+                <div style="width: 70px; height: 70px; border-radius: 50%; background: #334155; margin: 0 auto 15px auto; display: flex; align-items: center; justify-content: center; font-size: 28px; border: 2px solid rgba(255,255,255,0.2);">🔒</div>
+                <h3 style="font-size: 18px; color: #fff; margin-bottom: 5px;">Root Administrator</h3>
+                <p style="font-size: 12px; color: #94a3b8; margin-bottom: 20px;">Enter system credentials to unlock dispatch console</p>
+                <p id="adminLoginError" class="error-message" style="margin-bottom: 15px;">Incorrect Credentials.</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 12px; text-align: left;">
+                    <div>
+                        <label style="font-size: 11px; font-weight: 700; color: #94a3b8; display: block; margin-bottom: 4px;">USERNAME</label>
+                        <input type="text" id="adminUser" placeholder="Username" style="width: 100%; height: 38px; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fff; padding: 0 12px; font-size: 13px;">
+                    </div>
+                    <div>
+                        <label style="font-size: 11px; font-weight: 700; color: #94a3b8; display: block; margin-bottom: 4px;">PASSWORD</label>
+                        <input type="password" id="adminPass" placeholder="Password" style="width: 100%; height: 38px; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fff; padding: 0 12px; font-size: 13px;">
+                    </div>
+                    <div>
+                        <label style="font-size: 11px; font-weight: 700; color: #94a3b8; display: block; margin-bottom: 4px;">MOBILE NUMBER</label>
+                        <input type="tel" id="adminMobile" placeholder="Secure Root Mobile" style="width: 100%; height: 38px; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fff; padding: 0 12px; font-size: 13px;">
+                    </div>
+                    <button class="btn-standard" style="background: linear-gradient(180deg, #38bdf8 0%, #0ea5e9 100%); color: #032030; height: 40px; border-radius: 6px; font-weight: 700; margin-top: 10px; border: 1px solid rgba(255,255,255,0.3); cursor: pointer;" onclick="processAdminLogin()">Unlock Console</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminDashboard" class="content inner-padding">
+        
+        <div class="dispatch-hub-header">
+            <div class="dispatch-hub-title-area">
+                <div class="power-bi-badge-pill">ADMIN CACHE & TELEMETRY HUB</div>
+                <div class="dispatch-hub-title">Tiffins Care Delivery & Order Dispatch Hub</div>
+                <div class="dispatch-hub-desc">Live multi-account cached tracking for customer orders, meal prep stages, and logs across Nagpur.</div>
+            </div>
+            <div class="dispatch-hub-actions">
+                <button class="btn-live-feed" onclick="downloadDatabaseBackup()" style="background: #e0f2fe; color: #0369a1; border-color: #bae6fd;">💾 Download Backup</button>
+                <label class="btn-reset-data" style="cursor: pointer; background: #fffbeb; color: #d97706; border-color: #fde68a;">
+                    📂 Restore Backup
+                    <input type="file" style="display:none;" accept=".json" onchange="restoreDatabaseBackup(event)">
+                </label>
+                <button class="btn-reset-data" onclick="resetAllData()">🗑️ Reset Cache Data</button>
+                <button class="btn-reset-data" style="background: #fff0f0; color: #dc2626; border-color: #fecaca;" onclick="logoutAdmin()">🚪 Admin Sign Out</button>
+            </div>
+        </div>
+
+        <div class="meal-tracker-container">
+            <div class="meal-tracker-header">
+                <div class="meal-tracker-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    ACTIVE MEAL PLAN SUBSCRIPTIONS TRACKER (CACHED)
+                </div>
+                <div class="auto-calculated-badge">Auto-Calculated</div>
+            </div>
+
+            <div class="meal-tracker-grid" id="mealTrackerGrid">
+                </div>
+        </div>
+
+        <div class="telemetry-metrics-grid">
+            <div class="telemetry-card">
+                <div class="telemetry-label">TOTAL ACTIVE ORDERS</div>
+                <div class="telemetry-value" id="metricActiveOrders">0</div>
+                <div class="telemetry-subtext">Manavnagar Zone</div>
+            </div>
+            <div class="telemetry-card">
+                <div class="telemetry-label">ACTIVE REVENUE</div>
+                <div class="telemetry-value" id="metricTotalRevenue">₹0</div>
+                <div class="telemetry-subtext">Advance Collected</div>
+            </div>
+            <div class="telemetry-card">
+                <div class="telemetry-label">OUT FOR DELIVERY</div>
+                <div class="telemetry-value" id="metricOutDelivery">0</div>
+                <div class="telemetry-subtext">On the Way (Nagpur)</div>
+            </div>
+            <div class="telemetry-card">
+                <div class="telemetry-label">DELIVERED TODAY</div>
+                <div class="telemetry-value" id="metricDeliveredToday">0</div>
+                <div class="telemetry-subtext">Doorstep Fulfilled</div>
+            </div>
+            <div class="telemetry-card">
+                <div class="telemetry-label">PREPARING IN KITCHEN</div>
+                <div class="telemetry-value" id="metricPreparingKitchen">0</div>
+                <div class="telemetry-subtext">Hot & Fresh Pack</div>
+            </div>
+        </div>
+
+        <!-- NEW PERMANENT ANALYTICS SECTION -->
+        <h3 style="font-size: 14px; margin-top: 25px; margin-bottom: 15px; color: #334155; font-weight: 800;">📊 PERMANENT ANALYTICS (UNSECURED BY DELETIONS)</h3>
+        <div class="telemetry-metrics-grid" style="margin-bottom: 30px;">
+            <div class="telemetry-card" style="background: #f8fafc; border-color: #cbd5e1;">
+                <div class="telemetry-label">DAILY REVENUE</div>
+                <div class="telemetry-value" id="metricDailyRevenue" style="color: #0f172a;">₹0</div>
+                <div class="telemetry-subtext" style="color: #475569;">Today's Total (Inc. Deleted)</div>
+            </div>
+            <div class="telemetry-card" style="background: #f8fafc; border-color: #cbd5e1;">
+                <div class="telemetry-label">MONTHLY REVENUE</div>
+                <div class="telemetry-value" id="metricMonthlyRevenue" style="color: #0f172a;">₹0</div>
+                <div class="telemetry-subtext" style="color: #475569;">Current Month (Inc. Deleted)</div>
+            </div>
+            <div class="telemetry-card" style="background: #f0fdf4; border-color: #bbf7d0;">
+                <div class="telemetry-label">MORNING SHIFT TIFFINS</div>
+                <div class="telemetry-value" id="metricMorningShift" style="color: #166534;">0</div>
+                <div class="telemetry-subtext" style="color: #15803d;">Total Processed (Lifetime)</div>
+            </div>
+            <div class="telemetry-card" style="background: #eff6ff; border-color: #bfdbfe;">
+                <div class="telemetry-label">EVENING SHIFT TIFFINS</div>
+                <div class="telemetry-value" id="metricEveningShift" style="color: #1e3a8a;">0</div>
+                <div class="telemetry-subtext" style="color: #1d4ed8;">Total Processed (Lifetime)</div>
+            </div>
+        </div>
+
+        <!-- DYNAMIC PRICING MANAGEMENT CARD -->
+        <div class="card" style="margin-bottom: 25px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                <h3 style="font-size: 16px; margin: 0;">⚙️ Dynamic Pricing Management</h3>
+                <span style="background: #e0f2fe; color: #0284c7; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 800;">
+                    Live Homepage Sync
+                </span>
+            </div>
+            <p style="font-size: 13px; color: #64748b; margin-bottom: 15px;">Update the base prices for your tiffin plans below. Changes will instantly reflect on the customer homepage and booking forms.</p>
+            
+            <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr 1fr;">
+                <div class="form-group" style="margin-bottom:0;">
+                    <label>Half Tiffin (₹)</label>
+                    <input type="number" id="adminPriceHalf" style="padding-left:15px !important;" placeholder="2500">
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                    <label>Full Tiffin (₹)</label>
+                    <input type="number" id="adminPriceFull" style="padding-left:15px !important;" placeholder="3000">
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                    <label>Breakfast (₹)</label>
+                    <input type="number" id="adminPriceBreak" style="padding-left:15px !important;" placeholder="1000">
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                    <label>Trial Meal (₹)</label>
+                    <input type="number" id="adminPriceTrial" style="padding-left:15px !important;" placeholder="120">
+                </div>
+            </div>
+            <button class="btn-submit-booking" style="height:40px; margin-top:15px; width:auto; padding:0 20px;" onclick="savePricing()">💾 Update & Sync Pricing</button>
+        </div>
+
+        <div class="card recent-live-order-card" style="margin-bottom: 25px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+                <h3 style="font-size: 17px; display: flex; align-items: center; gap: 8px; margin-bottom:0; color: #064e3b; font-weight: 800;">
+                    <span class="t-dot t-green active"></span> Recent Cached Live Order Feed (Multi-Account Synchronized)
+                </h3>
+                <span style="background: #10b981; color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; letter-spacing: 0.5px; box-shadow: 0 2px 8px rgba(16,185,129,0.4);">
+                    🟢 Multi-Account Cache Active
+                </span>
+            </div>
+            <p style="font-size: 13px; color: #166534; margin-bottom: 15px; font-weight: 500;">
+                Live incoming customer orders from different browser accounts stream here instantaneously with light-green highlights and Thermal JPEG invoice generation.
+            </p>
+            <div style="overflow-x: auto;">
+                <table class="recent-live-table-highlight">
+                    <thead>
+                        <tr>
+                            <th>Time / Date</th>
+                            <th>Order ID</th>
+                            <th>Customer Name</th>
+                            <th>Delivery Address</th>
+                            <th>Mobile</th>
+                            <th>Tiffin Plan</th>
+                            <th>Payment</th>
+                            <th>Live Status</th>
+                            <th>Thermal JPEG & AI WhatsApp</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recentLiveOrderTableBody">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                <h3 style="font-size: 16px; margin: 0;">📖 Complete Customer Ledger Book, Payment Slips & Remarks</h3>
+                <button onclick="openManualEntryModal()" style="background: var(--hero-bg); color: white; border: none; padding: 8px 16px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 10px rgba(11, 122, 84, 0.3);">➕ Add New Customer (Manual)</button>
+            </div>
+            
+            <input type="text" id="adminSearch" class="admin-search-box" onkeyup="filterAdminTable()" placeholder="🔍 Search by Customer Name, Mobile Number, or Order ID...">
+            
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Joining Date</th>
+                            <th>Customer Name</th>
+                            <th>Delivery Address</th>
+                            <th>Mobile Number</th>
+                            <th>Plan & Shift</th>
+                            <th>Paid & Balance</th>
+                            <th>Payment Track / Slip</th>
+                            <th>Status (Live Tracking)</th>
+                            <th>Admin Remarks</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminOrderTable">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- NEW PAYMENT LEDGER DASHBOARD SECTION -->
+        <div class="card" style="margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                <h3 style="font-size: 16px; margin: 0;">💳 Customer Payment Ledger Dashboard</h3>
+                <span style="background: #e2e8f0; color: #475569; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 800;">
+                    Auto-Synced via Customer Portal
+                </span>
+            </div>
+            <p style="font-size: 13px; color: #64748b; margin-bottom: 15px;">This ledger displays all manual payment entries recorded automatically by customers through their individual dashboard.</p>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date Logged</th>
+                            <th>Customer Name</th>
+                            <th>Mobile Number</th>
+                            <th>Subscription Plan</th>
+                            <th>Paid Amount</th>
+                            <th>Payment Mode</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminPaymentLedgerBody">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-copyright">
+        <div>&copy; 2015–2026 <span>Tiffins care</span>. All rights reserved.</div>
+        <div style="font-size: 11px; color: rgba(167, 243, 208, 0.7);">FSSAI Registered Kitchen | Manavnagar, Dighori, Nagpur (MH)</div>
+        <div class="visitor-counter">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            Live Page Visitors: <span id="visitorCountDisplay">0</span>
+        </div>
+    </footer>
+
+</div>
+
+<script>
+    // CHANGED TO LOCAL STORAGE SO IT SURVIVES RELOADS
+    let loggedInMobile = localStorage.getItem('tiffinsUserMobile') || null;
+    let loggedInAdmin = localStorage.getItem('tiffinsAdminStatus') === 'true';
+    let editingOrderId = null; 
+    let dashboardTimer = null;
+    let secondsRemaining = 120; 
+    let currentCaptchaText = "";
+    let activeReceiptData = null; 
+    let historyCurrentPage = 1;
+    const HISTORY_PER_PAGE = 5;
+
+    // DYNAMIC PRICING LOGIC
+    const defaultPricing = { half: 2500, full: 3000, breakfast: 1000, trial: 120 };
+
+    function getPricing() {
+        return JSON.parse(localStorage.getItem('tiffinsPricing')) || defaultPricing;
+    }
+
+    function savePricing() {
+        const half = document.getElementById('adminPriceHalf').value;
+        const full = document.getElementById('adminPriceFull').value;
+        const breakf = document.getElementById('adminPriceBreak').value;
+        const trial = document.getElementById('adminPriceTrial').value;
+
+        if(!half || !full || !breakf || !trial) { alert("Please fill all pricing fields."); return; }
+
+        const newPricing = { half: Number(half), full: Number(full), breakfast: Number(breakf), trial: Number(trial) };
+        localStorage.setItem('tiffinsPricing', JSON.stringify(newPricing));
+        showNotification("Dynamic Pricing updated successfully!", false);
+        renderPricing();
+        if(loggedInAdmin) { renderAdminDashboardData(); }
+    }
+
+    function renderPricing() {
+        const pricing = getPricing();
+
+        // 1. Update Homepage Hero Section Prices
+        if(document.getElementById('priceDisplayHalf')) document.getElementById('priceDisplayHalf').innerText = pricing.half.toLocaleString();
+        if(document.getElementById('priceDisplayFull')) document.getElementById('priceDisplayFull').innerText = pricing.full.toLocaleString();
+        if(document.getElementById('priceDisplayBreak')) document.getElementById('priceDisplayBreak').innerText = pricing.breakfast.toLocaleString();
+        if(document.getElementById('priceDisplayTrial')) document.getElementById('priceDisplayTrial').innerText = pricing.trial.toLocaleString();
+
+        // 2. Update all embedded policy text spans
+        document.querySelectorAll('.dyn-price-half').forEach(el => el.innerText = pricing.half.toLocaleString());
+        document.querySelectorAll('.dyn-price-full').forEach(el => el.innerText = pricing.full.toLocaleString());
+        document.querySelectorAll('.dyn-price-break').forEach(el => el.innerText = pricing.breakfast.toLocaleString());
+        document.querySelectorAll('.dyn-price-trial').forEach(el => el.innerText = pricing.trial.toLocaleString());
+
+        // 3. Update Customer Booking Form Dropdown
+        const planSelect = document.getElementById('planType');
+        if(planSelect && planSelect.options.length >= 4) {
+            planSelect.options[0].text = `Full Tiffin - ₹${pricing.full.toLocaleString()} / mo`;
+            planSelect.options[0].value = `Full Tiffin - ₹${pricing.full.toLocaleString()} / mo`;
+            planSelect.options[1].text = `Half Tiffin - ₹${pricing.half.toLocaleString()} / mo`;
+            planSelect.options[1].value = `Half Tiffin - ₹${pricing.half.toLocaleString()} / mo`;
+            planSelect.options[2].text = `Morning Breakfast - ₹${pricing.breakfast.toLocaleString()} / mo`;
+            planSelect.options[2].value = `Morning Breakfast - ₹${pricing.breakfast.toLocaleString()} / mo`;
+            planSelect.options[3].text = `Trial Meal Single - ₹${pricing.trial.toLocaleString()} / meal`;
+            planSelect.options[3].value = `Trial Meal Single - ₹${pricing.trial.toLocaleString()} / meal`;
+        }
+
+        // 4. Update Admin Manual Entry Dropdown
+        const adminPlanSelect = document.getElementById('adminEntryPlan');
+        if(adminPlanSelect && adminPlanSelect.options.length >= 4) {
+            adminPlanSelect.options[0].text = `Full Tiffin - ₹${pricing.full.toLocaleString()}`;
+            adminPlanSelect.options[0].value = `Full Tiffin - ₹${pricing.full.toLocaleString()} / mo`;
+            adminPlanSelect.options[1].text = `Half Tiffin - ₹${pricing.half.toLocaleString()}`;
+            adminPlanSelect.options[1].value = `Half Tiffin - ₹${pricing.half.toLocaleString()} / mo`;
+            adminPlanSelect.options[2].text = `Breakfast - ₹${pricing.breakfast.toLocaleString()}`;
+            adminPlanSelect.options[2].value = `Morning Breakfast - ₹${pricing.breakfast.toLocaleString()} / mo`;
+            adminPlanSelect.options[3].text = `Trial - ₹${pricing.trial.toLocaleString()}`;
+            adminPlanSelect.options[3].value = `Trial Meal Single - ₹${pricing.trial.toLocaleString()} / meal`;
+        }
+
+        // 5. Populate Admin Pricing Inputs
+        if(document.getElementById('adminPriceHalf')) document.getElementById('adminPriceHalf').value = pricing.half;
+        if(document.getElementById('adminPriceFull')) document.getElementById('adminPriceFull').value = pricing.full;
+        if(document.getElementById('adminPriceBreak')) document.getElementById('adminPriceBreak').value = pricing.breakfast;
+        if(document.getElementById('adminPriceTrial')) document.getElementById('adminPriceTrial').value = pricing.trial;
+    }
+
+    // Google Review Simulated Live Feed Data
+    const simReviews = [
+        { text: "The cook, Rokde kaku, makes delicious and varied food. Best home-cooked meals in Dighori!", author: "Verified Customer" },
+        { text: "The tiffin service provides highly hygienic and tasty food. The staff is humble and nice.", author: "Local Guide" },
+        { text: "Holds an average rating of 4.9 for a reason! Quality and quantity both are excellent.", author: "Rahul M." },
+        { text: "Best part about them is that they provide food which we can actually say 'home food' (without over masalas). Variety of vegetables are included in their menu.", author: "Neha T." },
+        { text: "Best place in nagpur. Food is properly done, no tension, simply good. Always happy with what I get. Reliable and worth every penny.", author: "Amit V." }
+    ];
+    let currentReviewIndex = 0;
+
+    function startReviewFeed() {
+        const feedContainers = document.querySelectorAll('.live-review-feed-target');
+        if(feedContainers.length === 0) return;
+        
+        feedContainers.forEach(container => {
+            container.innerHTML = simReviews.map((r, i) => `
+                <div class="review-slide ${i === 0 ? 'active-review' : ''} review-slide-${i}">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"${r.text}"</p>
+                    <p class="review-author">${r.author} <span class="verified-tick">✓</span></p>
+                </div>
+            `).join('');
+        });
+
+        setInterval(() => {
+            feedContainers.forEach(container => {
+                let currentSlide = container.querySelector(`.review-slide-${currentReviewIndex}`);
+                if (currentSlide) currentSlide.classList.remove('active-review');
+            });
+            
+            currentReviewIndex = (currentReviewIndex + 1) % simReviews.length;
+            
+            feedContainers.forEach(container => {
+                let nextSlide = container.querySelector(`.review-slide-${currentReviewIndex}`);
+                if (nextSlide) nextSlide.classList.add('active-review');
+            });
+        }, 4500); // Rotates every 4.5 seconds
+    }
+
+    function updateVisitorCount() {
+        let count = localStorage.getItem('tiffinsVisitorCount');
+        if (!count) {
+            count = 12450; // starting realistic base
+        } else {
+            count = parseInt(count) + 1;
+        }
+        localStorage.setItem('tiffinsVisitorCount', count);
+        
+        const countDisplay = document.getElementById('visitorCountDisplay');
+        if(countDisplay) {
+            countDisplay.innerText = count.toLocaleString();
+        }
+    }
+
+    window.onload = () => {
+        if (window.history && window.history.replaceState) {
+            let sessionRandom = Math.floor(Math.random() * 100000000000);
+            window.history.replaceState({}, document.title, "/secure-ai-routing-session-" + sessionRandom);
+        }
+        updateAuthNavUI(); 
+        generateCaptcha();
+        renderPricing();
+        startReviewFeed(); 
+        updateVisitorCount(); 
+
+        // SMART ROUTING: Loads the exact tab you were on before you refreshed the page
+        let savedTab = localStorage.getItem('tiffinsCurrentTab') || 'home';
+        if (savedTab === 'adminDashboard' && !loggedInAdmin) savedTab = 'adminLogin';
+        if (savedTab === 'customerDashboard' && !loggedInMobile) savedTab = 'home';
+        showTab(savedTab);
+    };
+
+    function toggleMobileMenu() {
+        const navLinks = document.getElementById('mainNavLinks');
+        navLinks.classList.toggle('active-mobile');
+    }
+
+    // Modal logic for sharing via Link and QR Code
+    function openShareModal() {
+        const pricing = getPricing();
+        const waText = `We are happy to serve you Please Fill this form\n\nName.................:\nAddress......, .........:\nand Subscription Plan choose option in red circle\n🔴 a)Half Tiffins Rate ${pricing.half}/-\n🔴 b)Full Tiffins Rate ${pricing.full}/-\n🔴 c) Trial Tiffins Rate ${pricing.trial} /-\n🔴 d)Breakfast Tiffins Rate ${pricing.breakfast}/-\n\n*Terms Condition alert message:* Advance payment not refunded and sunday closed and if you discontinue the tiffin service in between ,no refund will be provided.\n\nThanks for ordering food if payment confirmed then your meals prepare and deliver joyfully`;
+        
+        // Universal web link that natively maps to standard whatsapp via OS routing (safe for Google Lens)
+        const bookingLink = `https://wa.me/919356688361?text=${encodeURIComponent(waText)}`;
+        
+        // Frontend QR code generation via free public API. Uses 400x400 resolution to handle the long string seamlessly.
+        document.getElementById('qrCodeImage').src = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(bookingLink)}`;
+        document.getElementById('shareLinkInput').value = bookingLink;
+        document.getElementById('shareModal').style.display = 'flex';
+    }
+
+    function closeShareModal() {
+        document.getElementById('shareModal').style.display = 'none';
+    }
+
+    function copyShareLink() {
+        const copyText = document.getElementById("shareLinkInput");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); 
+        navigator.clipboard.writeText(copyText.value).then(() => {
+            showNotification("Share link copied to clipboard!", false);
+        }).catch(err => {
+            alert("Failed to copy text: " + err);
+        });
+    }
+
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'tiffinsOrders' || e.key === 'tiffinsPayments' || e.key === 'tiffinsPricing') {
+            if (e.key === 'tiffinsPricing') { renderPricing(); }
+            if (loggedInMobile) {
+                renderCustomerDashboard();
+            }
+            if (loggedInAdmin) {
+                renderAdminDashboardData();
+            }
+        }
+    });
+
+    document.addEventListener('contextmenu', function(e) { e.preventDefault(); alert('Server busy or error'); });
+    document.addEventListener('keydown', function(e) {
+        if(e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'i' || e.key === 'j')) || (e.ctrlKey && (e.key === 'U' || e.key === 'u'))) {
+            e.preventDefault(); alert('Server busy or error');
+        }
+    });
+
+    function filterAdminTable() {
+        let input = document.getElementById("adminSearch");
+        let filter = input.value.toLowerCase();
+        let table = document.getElementById("adminOrderTable");
+        let tr = table.getElementsByTagName("tr");
+        for (let i = 0; i < tr.length; i++) {
+            let tdText = tr[i].innerText.toLowerCase();
+            if (tdText.includes(filter)) { tr[i].style.display = ""; } else { tr[i].style.display = "none"; }
+        }
+    }
+
+    function generateCaptcha() {
+        const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+        let captcha = "";
+        for (let i = 0; i < 4; i++) { captcha += chars.charAt(Math.floor(Math.random() * chars.length)); }
+        currentCaptchaText = captcha;
+        const displayEl = document.getElementById('captchaDisplay');
+        if (displayEl) { displayEl.innerText = captcha; }
+    }
+
+    function openTermsModal() { document.getElementById('termsModal').style.display = 'flex'; }
+    function closeTermsModal() { document.getElementById('termsModal').style.display = 'none'; }
+    function handleReviewsClick() { window.open('https://g.page/r/CXKAVj06tNdQEAE/review', '_blank'); showTab('about-page'); }
+
+    function openManualEntryModal() {
+        document.getElementById('adminEntryName').value = '';
+        document.getElementById('adminEntryMobile').value = '';
+        document.getElementById('adminEntryAddress').value = '';
+        document.getElementById('adminManualEntryModal').style.display = 'flex';
+    }
+
+    function closeManualEntryModal() {
+        document.getElementById('adminManualEntryModal').style.display = 'none';
+    }
+
+    function saveManualEntry() {
+        const name = document.getElementById('adminEntryName').value.trim();
+        const mobile = document.getElementById('adminEntryMobile').value.trim();
+        const address = document.getElementById('adminEntryAddress').value.trim();
+        const cuisine = document.getElementById('adminEntryCuisine').value;
+        const plan = document.getElementById('adminEntryPlan').value;
+        const shift = document.getElementById('adminEntryShift').value;
+        const payment = document.getElementById('adminEntryPayment').value;
+        const status = document.getElementById('adminEntryStatus').value;
+
+        if(!name || !mobile || !address) {
+            alert("Please fill in Name, Mobile, and Address.");
+            return;
+        }
+
+        let orders = JSON.parse(localStorage.getItem('tiffinsOrders')) || [];
+        
+        let isDuplicate = orders.some(o => o.mobile === mobile);
+        if (isDuplicate) {
+            if (!confirm("This number already exists! Do you want to re-book?")) {
+                return;
+            }
+        }
+
+        const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const dateNow = new Date().toLocaleDateString();
+
+        let orderIdNum = Date.now();
+        let existingUserOrders = orders.filter(o => o.mobile === mobile);
+        let serialSuffix = `-${String(existingUserOrders.length + 1).padStart(2, '0')}`;
+        let tcId = `TC-2026-${String(orderIdNum).slice(-3)}${serialSuffix}`;
+
+        const newOrder = { 
+            id: orderIdNum, 
+            tcId: tcId, 
+            timeString: timeNow, 
+            date: dateNow, 
+            name: name, 
+            mobile: mobile, 
+            address: address, 
+            cuisine: cuisine, 
+            plan: plan, 
+            shift: shift,
+            payment: payment, 
+            status: status, 
+            remark: 'Added manually by Admin', 
+            paymentSlip: null, 
+            paymentSlipData: null, 
+            customerNotified: false,
+            isDeleted: false
+        };
+        
+        orders.push(newOrder);
+        localStorage.setItem('tiffinsOrders', JSON.stringify(orders));
+        
+        closeManualEntryModal();
+        renderAdminDashboardData();
+        showNotification("Manual Entry added. Cached storage updated successfully!", false);
+    }
+
+    function updateAuthNavUI() {
+        const unifiedBtn = document.getElementById('navUnifiedBookBtn');
+        
+        if (loggedInMobile) {
+            if (unifiedBtn) {
+                unifiedBtn.innerText = "Dashboard & Booking";
+                unifiedBtn.onclick = function() { showTab('customerDashboard'); };
+            }
+        } else {
+            if (unifiedBtn) {
+                unifiedBtn.innerText = "Book Tiffin";
+                unifiedBtn.onclick = function() { checkOrderAccess(); };
+            }
+        }
+    }
+
+    function showNotification(message, isError = false) {
+        const toast = document.getElementById('notificationToast');
+        const icon = document.getElementById('toastIcon');
+        
+        if(isError) { toast.classList.add('admin-alert'); icon.innerText = '🚨'; } 
+        else { toast.classList.remove('admin-alert'); icon.innerText = '✅'; }
+        
+        document.getElementById('toastMessage').innerText = message;
+        toast.classList.add('show');
+        setTimeout(() => { toast.classList.remove('show'); }, 6000);
+    }
+
+    function checkCustomerNotifications() {
+        if(!loggedInMobile) return;
+        let orders = JSON.parse(localStorage.getItem('tiffinsOrders')) || [];
+        let updated = false;
+
+        orders.forEach(order => {
+            if(order.isDeleted) return;
+            if(order.mobile === loggedInMobile && order.status === 'Delivery on Way' && !order.customerNotified) {
+                showNotification(`Your tiffin is now "Delivery on Way"!`, false);
+                order.customerNotified = true; updated = true;
+            } else if(order.mobile === loggedInMobile && order.status === 'Confirmed' && !order.customerNotified) {
+                showNotification(`Your booking for ${order.plan} has been confirmed!`, false);
+                order.customerNotified = true; updated = true;
+            }
+        });
+
+        if(updated) { localStorage.setItem('tiffinsOrders', JSON.stringify(orders)); }
+    }
+
+    function showTab(tabId) {
+        document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        
+        document.getElementById('mainNavLinks').classList.remove('active-mobile');
+        
+        if(tabId === 'home') document.querySelectorAll('.nav-item')[0].classList.add('active');
+        if(tabId === 'about-page') document.querySelectorAll('.nav-item')[1].classList.add('active');
+
+        // CACHING TAB ROUTE
+        localStorage.setItem('tiffinsCurrentTab', tabId);
+
+        if(tabId === 'customerDashboard') {
+            historyCurrentPage = 1; 
+            renderCustomerDashboard(); checkCustomerNotifications(); startDashboardTimer();
+        } else if (tabId === 'adminDashboard') {
+            renderAdminDashboardData(); stopDashboardTimer();
+        } else {
+            stopDashboardTimer();
+        }
+    }
+
+    function startDashboardTimer() {
+        stopDashboardTimer(); secondsRemaining = 120; updateClockDisplay();
+        dashboardTimer = setInterval(() => {
+            secondsRemaining--; updateClockDisplay();
+            if (secondsRemaining <= 0) { stopDashboardTimer(); showNotification("Session expired. Automatically signing out.", true); logoutCustomer(); }
+        }, 1000);
+    }
+
+    function stopDashboardTimer() { if (dashboardTimer) { clearInterval(dashboardTimer); dashboardTimer = null; } }
+
+    function updateClockDisplay() {
+        let mins = Math.floor(secondsRemaining / 60); let secs = secondsRemaining % 60;
+        let formatted = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        const clockEl = document.getElementById('roundClockDisplay');
+        if (clockEl) { clockEl.innerText = formatted; }
+    }
+
+    // Unified logic: Open Login if not logged in
+    function checkOrderAccess() {
+        if (loggedInMobile) { 
+            resetOrderFormUI(); 
+            showTab('order'); 
+        } 
+        else { 
+            document.getElementById('loginMessage').style.display = 'block'; 
+            sessionStorage.setItem('redirectAfterLogin', 'order'); 
+            generateCaptcha(); 
+            showTab('customerLogin'); 
+        }
+    }
+
+    function checkAdminAccess() {
+        if (localStorage.getItem('tiffinsAdminStatus') === 'true') { 
+            showTab('adminDashboard'); 
+            renderAdminDashboardData(); 
+        } else { 
+            document.getElementById('adminLoginError').style.display = 'none'; 
+            showTab('adminLogin'); 
+        }
+    }
+
+    function processAdminLogin() {
+        const user = document.getElementById('adminUser').value.trim();
+        const pass = document.getElementById('adminPass').value.trim();
+        const mob = document.getElementById('adminMobile').value.trim();
+        const errorEl = document.getElementById('adminLoginError');
+        const authBox = document.getElementById('macAuthBox');
+
+        // Compatible with both original creds and macOS console password "apple123"
+        if ((user === 'Tiffinscare' && pass === 'Sakshi@123' && mob === '9356688361') || (user === 'admin' && pass === 'apple123' && mob === '9356688361')) {
+            loggedInAdmin = true; 
+            localStorage.setItem('tiffinsAdminStatus', 'true');
+            document.getElementById('adminUser').value = ''; 
+            document.getElementById('adminPass').value = ''; 
+            errorEl.style.display = 'none';
+            updateAuthNavUI(); 
+            showTab('adminDashboard'); 
+            renderAdminDashboardData(); 
+            showNotification("macOS Admin Console authenticated successfully!", false);
+        } else { 
+            errorEl.style.display = 'block';
+            authBox.classList.remove('shake');
+            void authBox.offsetWidth;
+            authBox.classList.add('shake');
+            document.getElementById('adminPass').value = '';
+            document.getElementById('adminPass').focus();
+        }
+    }
+
+    function logoutAdmin() {
+        loggedInAdmin = false; 
+        localStorage.removeItem('tiffinsAdminStatus'); 
+        updateAuthNavUI(); 
+        showTab('home'); 
+        showNotification("Admin signed out securely.", false);
+    }
+
+    function processLogin() {
+        const mobile = document.getElementById('loginMobileInput').value.trim();
+        const userInputCaptcha = document.getElementById('captchaInput').value.trim().toUpperCase();
+
+        if(mobile.length < 10) { alert("Please enter a valid 10-digit mobile number."); return; }
+        if(userInputCaptcha !== currentCaptchaText) { alert("❌ Invalid CAPTCHA code. Please try again."); generateCaptcha(); document.getElementById('captchaInput').value = ''; return; }
+        
+        loggedInMobile = String(mobile).trim();
+        localStorage.setItem('tiffinsUserMobile', loggedInMobile);
+        
+        document.getElementById('loginMessage').style.display = 'none'; document.getElementById('loginMobileInput').value = ''; document.getElementById('captchaInput').value = '';
+        
+        updateAuthNavUI(); 
+
+        const redirect = sessionStorage.getItem('redirectAfterLogin');
+        if (redirect === 'order') { 
+            sessionStorage.removeItem('redirectAfterLogin'); 
+            resetOrderFormUI();
+            showTab('order'); 
+        } 
+        else { 
+            showTab('customerDashboard'); 
+        }
+    }
+
+    function logoutCustomer() {
+        stopDashboardTimer();
+        loggedInMobile = null;
+        
+        localStorage.removeItem('tiffinsUserMobile');
+        sessionStorage.removeItem('redirectAfterLogin');
+        document.getElementById('loginMobileInput').value = '';
+        document.getElementById('orderForm').reset();
+        document.getElementById('activeBookingContainer').innerHTML = '';
+        document.getElementById('customerHistoryTable').innerHTML = '';
+        document.getElementById('historyPaginationContainer').innerHTML = '';
+        updateAuthNavUI();
+        showTab('home');
+        showNotification("Signed out securely. Account history cached locally.", false);
+    }
+
+    function resetOrderFormUI() {
+        document.getElementById('custName').value = ''; document.getElementById('custAddress').value = '';
+        document.getElementById('cuisineType').selectedIndex = 0; document.getElementById('planType').selectedIndex = 0; document.getElementById('paymentMode').selectedIndex = 0;
+        document.getElementById('shiftType').selectedIndex = 0;
+        
+        const mobileInput = document.getElementById('custMobile');
+        mobileInput.value = '';
+        mobileInput.readOnly = false;
+        
+        if (loggedInMobile) { 
+            mobileInput.value = loggedInMobile; 
+            mobileInput.readOnly = true; 
+        }
+        editingOrderId = null;
+    }
+
+    function openConfirmModal() {
+        const name = document.getElementById('custName').value.trim();
+        const address = document.getElementById('custAddress').value.trim();
+        const mobile = document.getElementById('custMobile').value.trim();
+
+        if(!name || !address || !mobile) { alert("Please fill in your Full Name, Mobile Number, and Enter Address."); return; }
+        
+        document.getElementById('confirmModal').style.display = 'flex';
+    }
+
+    function closeModal() { document.getElementById('confirmModal').style.display = 'none'; }
+
+    // UNIVERSAL HELPER FUNCTION TO FORCE STANDARD WHATSAPP APP ON ANDROID
+    function forceStandardWhatsApp(phone, text) {
+        const isAndroid = /Android/i.test(navigator.userAgent);
+        if (isAndroid) {
+            window.open(`intent://send?phone=${phone}&text=${encodeURIComponent(text)}#Intent;scheme=whatsapp;package=com.whatsapp;end`, '_self');
+        } else {
+            window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(text)}`, '_blank');
+        }
+    }
+
+    function orderViaWhatsAppAIBot() {
+        const name = document.getElementById('custName').value.trim();
+        const address = document.getElementById('custAddress').value.trim();
+        const mobile = document.getElementById('custMobile').value.trim();
+        const cuisine = document.getElementById('cuisineType').value;
+        const plan = document.getElementById('planType').value;
+        const shift = document.getElementById('shiftType').value;
+        const payment = document.getElementById('paymentMode').value;
+
+        if(!name || !address || !mobile) { alert("Please fill out your Full Name, Mobile Number, and Enter Address before ordering via WhatsApp AI."); return; }
+
+        const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const dateNow = new Date().toLocaleDateString();
+        
+        let orders = JSON.parse(localStorage.getItem('tiffinsOrders')) || [];
+        
+        let existingUserOrders = orders.filter(o => o.mobile === String(mobile).trim());
+        let serialSuffix = `-${String(existingUserOrders.length + 1).padStart(2, '0')}`;
+        let orderIdNum = Date.now();
+        let tcId = `TC-2026-${String(orderIdNum).slice(-3)}${serialSuffix}`;
+
+        let finalName = name;
+        let finalMobile = String(mobile).trim();
+        if (existingUserOrders.length > 0) { finalName = existingUserOrders[0].name; finalMobile = existingUserOrders[0].mobile; }
+
+        if (editingOrderId) {
+            for (let i = 0; i < orders.length; i++) {
+                if (orders[i].id === editingOrderId) {
+                    orders[i].name = finalName; orders[i].address = address; orders[i].cuisine = cuisine; orders[i].plan = plan; orders[i].shift = shift; orders[i].payment = payment; tcId = orders[i].tcId || tcId; break;
+                }
+            }
+            showNotification("Booking updated via AI Chatbot & cached!", false);
+            editingOrderId = null;
+        } else {
+            const newOrder = { id: orderIdNum, tcId: tcId, timeString: timeNow, date: dateNow, name: finalName, mobile: finalMobile, address: address, cuisine: cuisine, plan: plan, shift: shift, payment: payment, status: 'Pending', remark: '', paymentSlip: null, paymentSlipData: null, customerNotified: false, isDeleted: false };
+            orders.push(newOrder); showNotification(`Order Accepted! Generating AI Invoice...`, false);
+        }
+
+        localStorage.setItem('tiffinsOrders', JSON.stringify(orders));
+
+        const adminPhone = "919356688361";
+        let amount = getAmountFromPlan(plan).toLocaleString();
+        
+        const message = `🤖 *TIFFINS CARE AI ASSISTANT*\n✅ *Your order accepted & confirmed!*\n\n🧾 *AUTOMATIC INVOICE GENERATED*\n----------------------------------------\n🔖 *Order ID:* ${tcId}\n📅 *Date:* ${dateNow}\n👤 *Name:* ${finalName}\n📱 *Mobile:* ${finalMobile}\n🏠 *Address:* ${address}\n🍲 *Dish:* ${cuisine}\n📦 *Plan:* ${plan}\n⏱️ *Shift:* ${shift}\n💳 *Payment Mode:* ${payment}\n💵 *Bill Amount:* ₹${amount}\n----------------------------------------\n💬 *Chat on WHATSAPP AUTOMATIC CHATBOT USING AI*`;
+        
+        setTimeout(() => {
+            forceStandardWhatsApp(adminPhone, message);
+            resetOrderFormUI(); showTab('customerDashboard');
+        }, 1500);
+    }
+
+    function executeBookingSave() {
+        closeModal();
+        let name = document.getElementById('custName').value.trim();
+        let mobile = String(document.getElementById('custMobile').value).trim();
+        const address = document.getElementById('custAddress').value.trim();
+        const cuisine = document.getElementById('cuisineType').value;
+        const plan = document.getElementById('planType').value;
+        const shift = document.getElementById('shiftType').value;
+        const payment = document.getElementById('paymentMode').value;
+        const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const dateNow = new Date().toLocaleDateString();
+
+        let orders = JSON.parse(localStorage.getItem('tiffinsOrders')) || [];
+        let existingUserOrders = orders.filter(o => o.mobile === mobile);
+        if (existingUserOrders.length > 0) { name = existingUserOrders[0].name; mobile = existingUserOrders[0].mobile; }
+
+        let serialSuffix = `-${String(existingUserOrders.length + 1).padStart(2, '0')}`;
+        let orderIdNum = Date.now();
+        let tcId = `TC-2026-${String(orderIdNum).slice(-3)}${serialSuffix}`;
+
+        if (editingOrderId) {
+            for (let i = 0; i < orders.length; i++) {
+                if (orders[i].id === editingOrderId) {
+                    orders[i].name = name; orders[i].address = address; orders[i].cuisine = cuisine; orders[i].plan = plan; orders[i].shift = shift; orders[i].payment = payment; tcId = orders[i].tcId || tcId; break;
+                }
+            }
+            showNotification("Booking updated and cached successfully!", false); editingOrderId = null;
+        } else {
+            const newOrder = { id: orderIdNum, tcId: tcId, timeString: timeNow, date: dateNow, name: name, mobile: mobile, address: address, cuisine: cuisine, plan: plan, shift: shift, payment: payment, status: 'Pending', remark: '', paymentSlip: null, paymentSlipData: null, customerNotified: false, isDeleted: false };
+            orders.push(newOrder); showNotification(`Booking saved! Order ID: ${tcId}`, false);
+        }
+
+        localStorage.setItem('tiffinsOrders', JSON.stringify(orders));
+
+        activeReceiptData = { tcId: tcId, date: dateNow, time: timeNow, name: name, mobile: mobile, address: address, cuisine: cuisine, plan: plan, payment: payment, price: getAmountFromPlan(plan) };
+
+        document.getElementById('receiptDate').innerText = dateNow; document.getElementById('receiptTime').innerText = timeNow; document.getElementById('receiptOrderId').innerText = tcId;
+        document.getElementById('receiptCustomerName').innerText = name; document.getElementById('receiptCustomerMobile').innerText = mobile; document.getElementById('receiptCustomerAddress').innerText = address;
+        document.getElementById('receiptPlanDesc').innerText = plan;
+        document.getElementById('receiptPlanPrice').innerText = '₹' + getAmountFromPlan(plan).toLocaleString();
+        document.getElementById('receiptCuisine').innerText = cuisine; document.getElementById('receiptPayment').innerText = payment; 
+        document.getElementById('receiptTotalAmount').innerText = '₹' + getAmountFromPlan(plan).toLocaleString();
+
+        document.getElementById('thermalModal').style.display = 'flex'; resetOrderFormUI();
+    }
+
+    function getAmountFromPlan(planStr) {
+        const pricing = getPricing();
+        if (!planStr) return pricing.full; 
+        if (planStr.includes("Half Tiffin")) return pricing.half; 
+        if (planStr.includes("Full Tiffin")) return pricing.full; 
+        if (planStr.includes("Morning Breakfast")) return pricing.breakfast; 
+        if (planStr.includes("Trial Meal Single")) return pricing.trial; 
+        return pricing.full;
+    }
+
+    function closeThermalModal() { document.getElementById('thermalModal').style.display = 'none'; showTab('customerDashboard'); }
+
+    function printThermalDirect() {
+        const printContent = document.getElementById('thermalReceiptBox').innerHTML; const originalContent = document.body.innerHTML;
+        document.body.innerHTML = `<div style="width:300px; margin:20px auto; font-family:'Courier New';">${printContent}</div>`; window.print(); document.body.innerHTML = originalContent; window.location.reload();
+    }
+
+    function downloadJPEGReceipt() {
+        const receiptElement = document.getElementById('thermalReceiptBox');
+        html2canvas(receiptElement, { scale: 2 }).then(canvas => {
+            const link = document.createElement('a'); link.download = `TiffinsCare_Invoice_${activeReceiptData ? activeReceiptData.tcId : 'Receipt'}.jpeg`; link.href = canvas.toDataURL('image/jpeg', 1.0); link.click(); showNotification("Thermal receipt saved as JPEG successfully!", false);
+        });
+    }
+
+    function downloadPDFReceipt() {
+        const receiptElement = document.getElementById('thermalReceiptBox');
+        html2canvas(receiptElement, { scale: 2 }).then(canvas => {
+            const imgData = canvas.toDataURL('image/png'); const { jsPDF } = window.jspdf; const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: [80, 150] }); pdf.addImage(imgData, 'PNG', 5, 5, 70, 0); pdf.save(`TiffinsCare_Invoice_${activeReceiptData ? activeReceiptData.tcId : 'Receipt'}.pdf`); showNotification("Thermal receipt downloaded as PDF successfully!", false);
+        });
+    }
+
+    function shareWhatsAppReceipt() {
+        if (!activeReceiptData) return; const adminPhone = "919356688361";
+        
+        const message = `*🧾 Thermal Invoice - Tiffins Care*\n\n*Order ID:* ${activeReceiptData.tcId}\n*Date:* ${activeReceiptData.date} (${activeReceiptData.time})\n*Name:* ${activeReceiptData.name}\n*Mobile:* ${activeReceiptData.mobile}\n*Address:* ${activeReceiptData.address}\n*Plan:* ${activeReceiptData.plan}\n*Dish:* ${activeReceiptData.cuisine}\n*Payment:* ${activeReceiptData.payment}\n*Total:* ₹${activeReceiptData.price.toLocaleString()}\n\n*Note:* Advance payment is non-refundable. Thank you!`;
+        forceStandardWhatsApp(adminPhone, message);
+    }
+
+    function sendThermalJPEGInvoiceViaWhatsApp(orderId) {
+        let orders = JSON.parse(localStorage.getItem('tiffinsOrders')) || [];
+        let order = orders.find(o => o.id === orderId);
+        if(!order) return;
+
+        document.getElementById('receiptDate').innerText = order.date;
+        document.getElementById('receiptTime').innerText = order.timeString || '12:00 PM';
+        document.getElementById('receiptOrderId').innerText = order.tcId;
+        document.getElementById('receiptCustomerName').innerText = order.name;
+        document.getElementById('receiptCustomerMobile').innerText = order.mobile;
+        document.getElementById('receiptCustomerAddress').innerText = order.address;
+        document.getElementById('receiptPlanDesc').innerText = order.plan;
+        let amt = getAmountFromPlan(order.plan);
+        document.getElementById('receiptPlanPrice').innerText = '₹' + amt.toLocaleString();
+        document.getElementById('receiptCuisine').innerText = order.cuisine;
+        document.getElementById('receiptPayment').innerText = order.payment;
+        document.getElementById('receiptTotalAmount').innerText = '₹' + amt.toLocaleString();
+
+        const modalOverlay = document.getElementById('thermalModal');
+        const receiptElement = document.getElementById('thermalReceiptBox');
+        
+        // Render the modal entirely off-screen to avoid any visible popup flash
+        modalOverlay.style.position = 'fixed';
+        modalOverlay.style.top = '-10000px';
+        modalOverlay.style.left = '-10000px';
+        modalOverlay.style.display = 'flex';
+        modalOverlay.style.opacity = '1';
+        modalOverlay.style.pointerEvents = 'none';
+
+        showNotification("Generating thermal print invoice JPG in background...", false);
+
+        setTimeout(() => {
+            html2canvas(receiptElement, { scale: 2, backgroundColor: '#fffdfa' }).then(canvas => {
+                // Restore modal state to normal hidden position
+                modalOverlay.style.display = 'none';
+                modalOverlay.style.top = '0';
+                modalOverlay.style.left = '0';
+                modalOverlay.style.pointerEvents = 'auto';
+
+                const link = document.createElement('a');
+                link.download = `TiffinsCare_Invoice_${order.tcId}.jpeg`;
+                link.href = canvas.toDataURL('image/jpeg', 1.0);
+                link.click();
+
+                let waMessage = `🙏 *Namaste & Good Morning, ${order.name} Ji!*\nThank you for choosing *Tiffins Care, Manavnagar, Dighori, Nagpur*. Here is your official thermal JPEG invoice & confirmation details:\n\n🧾 *TIFFINS CARE - OFFICIAL INVOICE & RECEIPT*\n----------------------------------------\n🔖 *Order ID:* ${order.tcId}\n📅 *Date:* ${order.date} (${order.timeString || '12:00 PM'})\n👤 *Customer Name:* ${order.name}\n📱 *Mobile Number:* ${order.mobile}\n🏠 *Delivery Address:* ${order.address}\n🍲 *Dish Category:* ${order.cuisine}\n📦 *Tiffin Plan:* ${order.plan}\n💳 *Payment Mode:* ${order.payment}\n💵 *Bill Amount:* ₹${amt.toLocaleString()} (PAID)\n🚚 *Current Status:* ${order.status}\n----------------------------------------\n📷 *(Please attach the downloaded thermal JPEG invoice file saved from your directory)*\n\n🌟 *Team Tiffins Care, Nagpur*`;
+
+                setTimeout(() => {
+                    forceStandardWhatsApp(order.mobile, waMessage);
+                    showNotification("Thermal Invoice generated and WhatsApp launched successfully!", false);
+                }, 800);
+            });
+        }, 300);
+    }
+
+    function editOrderFromHistory(orderId) {
+        let orders = JSON.parse(localStorage.getItem('tiffinsOrders')) || [];
+        let order = orders.find(o => o.id === orderId);
+        if(order) {
+            editingOrderId = order.id; document.getElementById('custName').value = order.name; document.getElementById('custMobile').value = order.mobile;
+            document.getElementById('custAddress').value = order.address; document.getElementById('cuisineType').value = order.cuisine; document.getElementById('planType').value = order.plan; document.getElementById('paymentMode').value = order.payment || 'PhonePe'; showTab('order');
+        }
+    }
+
+    function reorderFromHistory(orderId) {
+        let orders = JSON.parse(localStorage.getItem('tiffinsOrders')) || [];
+        let order = orders.find(o => o.id === orderId);
+        if (order) {
+            if (order.status === 'Pending') { alert("⚠️ Cannot Re-Order: Your previous order payment/confirmation is still Pending. Please wait for Admin to confirm payment."); return; }
+            document.getElementById('custName').value = order.name; document.getElementById('custMobile').value = order.mobile; document.getElementById('custAddress').value = order.address; showTab('order'); showNotification("Previous payment verified! You can now place your 2nd order.", false);
+        }
+    }
+
+    function uploadPaymentSlip() {
+        const fileInput = document.getElementById('slipFileInput');
+        if (!fileInput.files || fileInput.files.length === 0) { alert("Please select a payment slip file to upload."); return; }
+        const file = fileInput.files[0]; const fileName = file.name; const reader = new FileReader();
+        reader.onload = function(e) {
+            const slipDataUrl = e.target.result; let orders = JSON.parse(localStorage.getItem('tiffinsOrders')) || []; let myOrders = orders.filter(o => o.mobile === String(loggedInMobile));
+            if (myOrders.length === 0) { alert("No active orders found to attach payment slip."); return; }
+            let latestId = myOrders[myOrders.length - 1].id;
+            for (let i = 0; i < orders.length; i++) { if (orders[i].id === latestId) { orders[i].paymentSlip = fileName; orders[i].paymentSlipData = slipDataUrl; break; } }
+            localStorage.setItem('tiffinsOrders', JSON.stringify(orders)); document.getElementById('uploadSlipStatus').innerText = `✅ Slip "${fileName}" uploaded & cached successfully!`; showNotification("Extra meal payment slip uploaded and cached to Admin panel!", false);
+        }; reader.readAsDataURL(file);
+    }
+
+    function adminUpdateSlip(event, orderId) {
+        const file = event.target.files[0]; if(!file) return; const reader = new FileReader();
+        reader.onload = function(e) {
+            const slipDataUrl = e.target.result; let orders = JSON.parse(localStorage.getItem('tiffinsOrders')) || [];
+            for (let i = 0; i < orders.length; i++) { if (orders[i].id === orderId) { orders[i].paymentSlip = file.name; orders[i].paymentSlipData = slipDataUrl; break; } }
+            localStorage.setItem('tiffinsOrders', JSON.stringify(orders)); showNotification("Slip updated in cache successfully!", false); renderAdminDashboardData(); 
+        }; reader.readAsDataURL(file);
+    }
+
+    function viewPaymentSlip(orderId) {
+        let orders = JSON.parse(localStorage.getItem('tiffinsOrders')) || []; let order = orders.find(o => o.id === orderId);
+        if(order && order.paymentSlipData) { document.getElementById('slipImagePreview').src = order.paymentSlipData; document.getElementById('slipImagePreview').style.display = 'block'; document.getElementById('slipNoImageText').style.display = 'none'; } 
+        else { document.getElementById('slipImagePreview').style.display = 'none'; document.getElementById('slipNoImageText').innerText = order && order.paymentSlip ? `Preview not available for ${order.paymentSlip}` : "No slip uploaded"; document.getElementById('slipNoImageText').style.display = 'block'; }
+        document.getElementById('slipViewModal').style.display = 'flex';
+    }
+
+    function closeSlipViewModal() { document.getElementById('slipViewModal').style.display = 'none'; }
+    
+    function submitManualPayment() {
+        let amount = document.getElementById('manualPaymentAmount').value;
+        let mode = document.getElementById('manualPaymentMode').value;
+        if(!amount || amount <= 0) { alert("Please enter a valid payment amount."); return; }
+        
+        let orders = JSON.parse(localStorage.getItem('tiffinsOrders')) || [];
+        let myOrders = orders.filter(o => o.mobile === String(loggedInMobile) && !o.isDeleted).reverse();
+        
+        if(myOrders.length === 0) { 
+            alert("Please book a tiffin plan first before manually logging a payment."); 
+            return; 
+        }
+        
+        let latestOrder = myOrders[0];
+        let payments = JSON.parse(localStorage.getItem('tiffinsPayments')) || [];
+        
+        payments.push({
+            id: Date.now(),
+            date: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            mobile: loggedInMobile,
+            name: latestOrder.name,
+            plan: latestOrder.plan,
+            amount: amount,
+            mode: mode
+        });
+        
+        localStorage.setItem('tiffinsPayments', JSON.stringify(payments));
+        document.getElementById('manualPaymentAmount').value = '';
+        showNotification("Payment Details Logged Successfully!", false);
+        renderCustomerDashboard();
+    }
+    
+    function addAdvancePayment(orderId, mobile, plan, name) {
+        let amount = prompt(`Enter Advance Payment Amount (₹) for ${name}:`);
+        if(amount && !isNaN(amount) && Number(amount) > 0) {
+            let mode = prompt("Enter Payment Mode (e.g., Cash, PhonePe, GPay):", "Cash");
+            if(mode !== null) {
+                let payments = JSON.parse(localStorage.getItem('tiffinsPayments')) || [];
+                payments.push({
+                    id: Date.now(),
+                    date: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                    mobile: mobile,
+                    name: name,
+                    plan: plan,
+                    amount: amount,
+                    mode: mode || "Cash"
+                });
+                localStorage.setItem('tiffinsPayments', JSON.stringify(payments));
+                showNotification("Advance payment recorded & synced successfully!", false);
+                renderAdminDashboardData();
+            }
+        }
+    }
+
+    function goToHistoryPage(pageNumber) {
+        historyCurrentPage = pageNumber;
+        renderCustomerDashboard();
+    }
+
+    function renderPagination(totalOrders) {
+        const paginationContainer = document.getElementById('historyPaginationContainer');
+        paginationContainer.innerHTML = '';
+        
+        let totalPages = Math.ceil(totalOrders / HISTORY_PER_PAGE);
+        if (totalPages <= 1) return;
+
+        let html = '';
+        let maxPagesToShow = Math.min(totalPages, 3);
+        
+        for (let i = 1; i <= maxPagesToShow; i++) {
+            let activeClass = i === historyCurrentPage ? 'active' : '';
+            html += `<button class="page-btn ${activeClass}" onclick="goToHistoryPage(${i})">${i}</button>`;
+        }
+        
+        if (historyCurrentPage < totalPages && totalPages > 1) {
+            html += `<button class="page-btn" onclick="goToHistoryPage(${historyCurrentPage + 1})">Next ⏭</button>`;
+        }
+        
+        paginationContainer.innerHTML = html;
+    }
+
+    function renderCustomerDashboard() {
+        if(!loggedInMobile) return;
+        document.getElementById('displayUserMobile').innerText = loggedInMobile;
+        
+        let allOrders = JSON.parse(localStorage.getItem('tiffinsOrders')) || [];
+        let myOrders = allOrders.filter(o => o.mobile === String(loggedInMobile) && !o.isDeleted).reverse();
+
+        const activeContainer = document.getElementById('activeBookingContainer');
+        const historyTable = document.getElementById('customerHistoryTable');
+        const remarkBannerContainer = document.getElementById('customerRemarkBannerContainer');
+        
+        // Render Payment History
+        let payments = JSON.parse(localStorage.getItem('tiffinsPayments')) || [];
+        let myPayments = payments.filter(p => p.mobile === String(loggedInMobile)).reverse();
+        let paymentTbody = document.getElementById('customerPaymentTableBody');
+        paymentTbody.innerHTML = '';
+        if(myPayments.length === 0) {
+             paymentTbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#666;">No payments logged yet.</td></tr>';
+        } else {
+             myPayments.forEach(p => {
+                 paymentTbody.innerHTML += `<tr><td style="font-size:12px; color:#475569;">${p.date}</td><td style="font-weight:bold; color:#10b981;">₹${Number(p.amount).toLocaleString()}</td><td><span class="payment-badge upi">${p.mode}</span></td></tr>`;
+             });
+        }
+        
+        historyTable.innerHTML = ''; activeContainer.innerHTML = ''; remarkBannerContainer.innerHTML = '';
+
+        if(myOrders.length === 0) {
+            activeContainer.innerHTML = '<p style="color: #666; font-size: 14px; padding: 20px;">No active bookings found for this account.</p>';
+            historyTable.innerHTML = '<tr><td colspan="4" style="color:#666;">No cached order history found.</td></tr>'; 
+            document.getElementById('historyPaginationContainer').innerHTML = '';
+            return;
+        }
+
+        const latest = myOrders[0];
+        const pricing = getPricing();
+
+        if (latest.remark && latest.remark.trim() !== '') {
+            remarkBannerContainer.innerHTML = `<div class="customer-remark-alert"><span style="font-size:18px;">ℹ️</span><div><strong style="color: #1e3a8a; font-size:12px; text-transform:uppercase; display:block;">Admin Notice / Remark:</strong><span>${latest.remark}</span></div></div>`;
+        }
+
+        let statusColor = '#f59e0b';
+        let statusBorder = '#d97706';
+        let highlightClass = '';
+        let bannerHtml = '';
+
+        // APPLY DYNAMIC HIGHLIGHT CLASSES IF CONFIRMED OR DELIVERY
+        if (latest.status === 'Confirmed') { 
+            statusColor = '#10b981'; 
+            statusBorder = '#10b981'; 
+            highlightClass = 'booking-highlight-confirmed';
+            bannerHtml = `<div class="highlight-banner">🎉 New Booking Confirmed by Admin!</div>`;
+        } 
+        else if (latest.status === 'Delivery on Way') { 
+            statusColor = '#38bdf8'; 
+            statusBorder = '#38bdf8'; 
+            highlightClass = 'booking-highlight-delivery';
+            bannerHtml = `<div class="highlight-banner delivery">🚚 Food is out for Delivery!</div>`;
+        }
+        
+        let amountStr = getAmountFromPlan(latest.plan).toLocaleString();
+
+        let reorderBtnHtml = '';
+        if (latest.status === 'Confirmed' || latest.status === 'Delivery on Way') { 
+            reorderBtnHtml = `<button class="btn-reorder" onclick="reorderFromHistory(${latest.id})">🔥 Place 2nd Order (Re-Order)</button>`; 
+        } else { 
+            reorderBtnHtml = `<button class="btn-reorder" style="background:#94a3b8; animation:none;" onclick="alert('Waiting for payment confirmation from Admin to unlock Re-Order.')">🔒 Re-Order (Pending Payment)</button>`; 
+        }
+
+        let gwPhonePe = latest.payment === 'PhonePe' ? 'memo-gw-active' : '';
+        let gwGPay = latest.payment === 'GPay' ? 'memo-gw-active' : '';
+        let gwPaytm = latest.payment === 'Paytm' ? 'memo-gw-active' : '';
+        let gwCash = latest.payment === 'Cash' ? 'memo-gw-active' : '';
+
+        activeContainer.innerHTML = `
+            <div class="memo-card ${highlightClass}">
+                ${bannerHtml}
+                <div class="memo-header">
+                    <span class="memo-title">CACHED ACCOUNT MEMO (LAST RECORD)</span>
+                    <span class="memo-hub">Manavnagar Hub</span>
+                </div>
+
+                <div class="memo-latest-box">
+                    <div class="memo-latest-top">
+                        <span class="memo-latest-text">
+                            <span class="live-pulsing-dot"></span> 
+                            LATEST BOOKING ENTRY
+                        </span>
+                        <span class="memo-order-id">${latest.tcId || 'TC-2026-101'}</span>
+                    </div>
+                    <div class="memo-status-row">
+                        <span class="memo-status-label">Status:</span>
+                        <span class="memo-status-badge" style="color:${statusColor}; border-color:${statusBorder};">${latest.status}</span>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
+                    <div class="memo-row"><span>Customer:</span> <strong>${latest.name}</strong></div>
+                    <div class="memo-row"><span>Mobile No:</span> <strong>${latest.mobile}</strong></div>
+                    <div class="memo-row"><span>Address:</span> <strong>${latest.address}</strong></div>
+                    <div class="memo-row"><span>Selected Plan:</span> <strong style="color: #34d399;">${latest.plan}</strong></div>
+                    <div class="memo-row"><span>Dish Category:</span> <strong>${latest.cuisine}</strong></div>
+                    <div class="memo-row"><span>Payment Option:</span> <strong style="background: #064e3b; padding: 3px 8px; border-radius: 4px;">${latest.payment}</strong></div>
+                </div>
+
+                <div style="border-top: 1px dashed rgba(255,255,255,0.2); margin: 20px 0;"></div>
+
+                <div class="memo-total-section">
+                    <div>
+                        <div class="memo-total-label">CALCULATED TOTAL</div>
+                        <div class="memo-total-val">₹${amountStr}</div>
+                    </div>
+                    <div class="memo-delivery-pill">Doorstep Delivery Included</div>
+                </div>
+
+                <div class="memo-total-label" style="margin-bottom: 12px;">SUPPORTED PAYMENT GATEWAYS</div>
+                <div class="memo-gateways">
+                    <span class="${gwPhonePe}"><span style="color: #6366f1;">🟣</span> PhonePe</span>
+                    <span class="${gwGPay}"><span style="color: #3b82f6;">🔵</span> GPay</span>
+                    <span class="${gwPaytm}"><span style="color: #0ea5e9;">🔷</span> Paytm</span>
+                    <span class="${gwCash}"><span style="color: #10b981;">💵</span> Cash</span>
+                </div>
+                
+                <div style="margin-top: 25px; display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="btn-action-edit" style="font-size: 13px; padding: 8px 16px;" onclick="editOrderFromHistory(${latest.id})">Edit Detail</button>
+                    ${reorderBtnHtml}
+                </div>
+            </div>
+        `;
+
+        let totalPages = Math.ceil(myOrders.length / HISTORY_PER_PAGE);
+        if (historyCurrentPage > totalPages) historyCurrentPage = totalPages || 1;
+
+        let startIndex = (historyCurrentPage - 1) * HISTORY_PER_PAGE;
+        let paginatedOrders = myOrders.slice(startIndex, startIndex + HISTORY_PER_PAGE);
+
+        paginatedOrders.forEach(order => {
+            let rowTag = 'tag-pending';
+            if (order.status === 'Confirmed') rowTag = 'tag-confirmed'; else if (order.status === 'Delivery on Way') rowTag = 'tag-delivery';
+
+            let rowReorderAction = (order.status === 'Confirmed' || order.status === 'Delivery on Way') ?
+                `<button class="btn-reorder" onclick="reorderFromHistory(${order.id})" style="padding:4px 8px; font-size:11px;">Re-Order</button>` : `<span style="font-size:11px; color:#94a3b8;">Pending Payment</span>`;
+
+            historyTable.innerHTML += `
+                <tr>
+                    <td style="font-size:12px;">${order.date} <br><small style="color:var(--hero-bg);">${order.tcId || ''}</small></td>
+                    <td>${order.plan}</td>
+                    <td><span class="status-tag ${rowTag}">${order.status}</span></td>
+                    <td><button class="btn-action-edit" onclick="editOrderFromHistory(${order.id})">Edit</button> ${rowReorderAction}</td>
+                </tr>
+            `;
+        });
+
+        renderPagination(myOrders.length);
+    }
+
+    // DATABASE BACKUP AND RESTORE FUNCTIONS
+    function downloadDatabaseBackup() {
+        const data = {
+            orders: JSON.parse(localStorage.getItem('tiffinsOrders')) || [],
+            payments: JSON.parse(localStorage.getItem('tiffinsPayments')) || [],
+            pricing: JSON.parse(localStorage.getItem('tiffinsPricing')) || defaultPricing,
+            visitorCount: localStorage.getItem('tiffinsVisitorCount') || 0
+        };
+        const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `TiffinsCare_Database_Backup_${new Date().toLocaleDateString().replace(/\//g,'-')}.json`;
+        link.click();
+        showNotification("Database backup downloaded successfully! Save it somewhere safe.", false);
+    }
+
+    function restoreDatabaseBackup(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const data = JSON.parse(e.target.result);
+                if (data.orders) localStorage.setItem('tiffinsOrders', JSON.stringify(data.orders));
+                if (data.payments) localStorage.setItem('tiffinsPayments', JSON.stringify(data.payments));
+                if (data.pricing) localStorage.setItem('tiffinsPricing', JSON.stringify(data.pricing));
+                if (data.visitorCount) localStorage.setItem('tiffinsVisitorCount', data.visitorCount);
+                renderPricing();
+                renderAdminDashboardData();
+                showNotification("Database restored successfully!", false);
+            } catch(err) {
+                alert("Invalid backup file! Make sure you selected the correct JSON file.");
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    function resetAllData() {
+        if(confirm("Are you sure you want to reset all order cache data and telemetry?")) { 
+            localStorage.removeItem('tiffinsOrders'); 
+            localStorage.removeItem('tiffinsPayments'); 
+            localStorage.removeItem('adminAccessLogs'); 
+            renderAdminDashboardData(); 
+            showNotification("All cached telemetry data successfully reset.", true); 
+        }
+    }
+    
+    function deleteAdminOrder(orderId) {
+        if(confirm("Are you sure you want to completely delete this order? It will be removed from the active lists but retained for revenue/shift analytics.")) {
+            let orders = JSON.parse(localStorage.getItem('tiffinsOrders')) || [];
+            for (let i = 0; i < orders.length; i++) {
+                if (orders[i].id === orderId) {
+                    orders[i].isDeleted = true;
+                    break;
+                }
+            }
+            localStorage.setItem('tiffinsOrders', JSON.stringify(orders));
+            renderAdminDashboardData();
+            showNotification("Order deleted from active list.", true);
+        }
+    }
+
+    function viewAdminRemark(orderId) {
+        const inputEl = document.getElementById(`remarkInput_${orderId}`); if (!inputEl) return;
+        const currentRemark = inputEl.value.trim(); if(currentRemark) { alert(`Current Remark:\n\n${currentRemark}`); } else { alert("No remark currently saved for this order."); }
+    }
+
+    function saveAdminRemark(orderId) {
+        const inputEl = document.getElementById(`remarkInput_${orderId}`); if (!inputEl) return;
+        const newRemark = inputEl.value.trim(); let orders = JSON.parse(localStorage.getItem('tiffinsOrders')) || [];
+        for (let i = 0; i < orders.length; i++) { if (orders[i].id === orderId) { orders[i].remark = newRemark; break; } }
+        localStorage.setItem('tiffinsOrders', JSON.stringify(orders)); showNotification("Admin remark cached and updated successfully!", false); renderAdminDashboardData();
+    }
+
+    function sendReminderWA(orderId, type) {
+        let orders = JSON.parse(localStorage.getItem('tiffinsOrders')) || []; 
+        let order = orders.find(o => o.id === orderId); 
+        if(!order) return;
+        
+        let amount = getAmountFromPlan(order.plan).toLocaleString();
+        let message = "";
+
+        // STANDARD WHATSAPP MESSENGER FORMAT ONLY (No Business API)
+        if (type === 'trial') {
+            message = `🙏 *Namaste ${order.name} Ji!*\nWe hope you enjoyed your Trial Meal from *Tiffins Care*.\n\nThis is a gentle reminder to kindly clear the payment of *₹${amount}*.\n\nIf you'd like to continue with our regular subscription, please let us know!\n\n*Payment Mode:* UPI / PhonePe / GPay\n*Number:* 9356688361\n\nThank you!`;
+        } else if (type === 'advance') {
+            message = `🙏 *Namaste ${order.name} Ji!*\nThank you for choosing *Tiffins Care*.\n\nThis is a gentle reminder to process your advance payment of *₹${amount}* for your *${order.plan}* so we can confirm your regular kitchen slot without any interruption.\n\n*Payment Mode:* UPI / PhonePe / GPay\n*Number:* 9356688361\n\nThank you!`;
+        } else if (type === 'dues') {
+            message = `🙏 *Namaste ${order.name} Ji!*\nWe hope you are enjoying your meals from *Tiffins Care*.\n\nThis is a gentle reminder regarding a pending due amount of *₹${amount}* for your *${order.plan}*. Kindly clear the dues at your earliest convenience to ensure uninterrupted service.\n\n*Payment Mode:* UPI / PhonePe / GPay\n*Number:* 9356688361\n\nThank you for your support!`;
+        }
+
+        forceStandardWhatsApp(order.mobile, message);
+    }
+
+    function renderAdminDashboardData() {
+        let orders = JSON.parse(localStorage.getItem('tiffinsOrders')) || [];
+        let payments = JSON.parse(localStorage.getItem('tiffinsPayments')) || [];
+        const pricing = getPricing();
+        const adminTbody = document.getElementById('adminOrderTable'); const recentLiveTbody = document.getElementById('recentLiveOrderTableBody'); const trackerGrid = document.getElementById('mealTrackerGrid');
+        
+        adminTbody.innerHTML = ''; recentLiveTbody.innerHTML = ''; trackerGrid.innerHTML = '';
+
+        let halfCount = 0, halfBilled = 0; let fullCount = 0, fullBilled = 0; let trialCount = 0, trialBilled = 0; let breakCount = 0, breakBilled = 0;
+        let totalRevenue = 0; let outForDeliveryCount = 0; let deliveredTodayCount = 0; let preparingKitchenCount = 0;
+        
+        // Permanent Analytics Trackers
+        let dailyRev = 0, monthlyRev = 0, morningCount = 0, eveningCount = 0;
+        const todayStr = new Date().toLocaleDateString();
+        const currMonth = new Date().getMonth();
+        const currYear = new Date().getFullYear();
+
+        orders.forEach(o => {
+            let amt = getAmountFromPlan(o.plan); 
+            
+            // Permanent Analytics Unaffected by Deletions
+            if(o.date === todayStr) { dailyRev += amt; }
+            let oDate = new Date(o.date);
+            if (oDate.getMonth() === currMonth && oDate.getFullYear() === currYear) { monthlyRev += amt; }
+            
+            if (o.shift === 'Morning Shift') { morningCount++; } 
+            else if (o.shift === 'Evening Shift') { eveningCount++; }
+            else if (o.shift === 'Both Shifts') { morningCount++; eveningCount++; }
+            
+            // Active Metrics (Skips deleted)
+            if (o.isDeleted) return;
+
+            totalRevenue += amt;
+            if (o.plan.includes("Half Tiffin")) { halfCount++; halfBilled += amt; } else if (o.plan.includes("Full Tiffin")) { fullCount++; fullBilled += amt; } else if (o.plan.includes("Trial Meal")) { trialCount++; trialBilled += amt; } else if (o.plan.includes("Morning Breakfast")) { breakCount++; breakBilled += amt; }
+            if (o.status === 'Delivery on Way') outForDeliveryCount++; else if (o.status === 'Confirmed') deliveredTodayCount++; else if (o.status === 'Pending') preparingKitchenCount++;
+        });
+
+        // Set Permanent Analytics
+        document.getElementById('metricDailyRevenue').innerText = '₹' + dailyRev.toLocaleString();
+        document.getElementById('metricMonthlyRevenue').innerText = '₹' + monthlyRev.toLocaleString();
+        document.getElementById('metricMorningShift').innerText = morningCount;
+        document.getElementById('metricEveningShift').innerText = eveningCount;
+
+        trackerGrid.innerHTML = `
+            <div class="meal-tracker-box"><div class="meal-box-title">HALF TIFFINS (₹${pricing.half.toLocaleString()})</div><div class="meal-box-count">${halfCount} <span style="font-size:14px; font-weight:600; color:#e2e8f0;">Subscriptions</span></div><div class="meal-box-billed">₹${halfBilled.toLocaleString()} Billed</div></div>
+            <div class="meal-tracker-box"><div class="meal-box-title">FULL TIFFINS (₹${pricing.full.toLocaleString()})</div><div class="meal-box-count">${fullCount} <span style="font-size:14px; font-weight:600; color:#e2e8f0;">Subscriptions</span></div><div class="meal-box-billed">₹${fullBilled.toLocaleString()} Billed</div></div>
+            <div class="meal-tracker-box"><div class="meal-box-title">TRIAL MEALS (₹${pricing.trial.toLocaleString()})</div><div class="meal-box-count">${trialCount} <span style="font-size:14px; font-weight:600; color:#e2e8f0;">Meals</span></div><div class="meal-box-billed">₹${trialBilled.toLocaleString()} Billed</div></div>
+            <div class="meal-tracker-box"><div class="meal-box-title">BREAKFAST (₹${pricing.breakfast.toLocaleString()})</div><div class="meal-box-count">${breakCount} <span style="font-size:14px; font-weight:600; color:#e2e8f0;">Subscriptions</span></div><div class="meal-box-billed">₹${breakBilled.toLocaleString()} Billed</div></div>
+        `;
+
+        let activeOrdersCount = orders.filter(o => !o.isDeleted).length;
+        document.getElementById('metricActiveOrders').innerText = activeOrdersCount; document.getElementById('metricTotalRevenue').innerText = '₹' + totalRevenue.toLocaleString(); document.getElementById('metricOutDelivery').innerText = outForDeliveryCount; document.getElementById('metricDeliveredToday').innerText = deliveredTodayCount; document.getElementById('metricPreparingKitchen').innerText = preparingKitchenCount;
+
+        // Render Admin Payment Ledger
+        let pBody = document.getElementById('adminPaymentLedgerBody');
+        pBody.innerHTML = '';
+        if(payments.length === 0) {
+             pBody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 15px; color:#64748b;">No customer payments recorded yet.</td></tr>';
+        } else {
+             payments.slice().reverse().forEach(p => {
+                 pBody.innerHTML += `<tr>
+                     <td style="font-size:12px; color:#475569;">${p.date}</td>
+                     <td><strong>${p.name}</strong></td>
+                     <td>${p.mobile}</td>
+                     <td>${p.plan}</td>
+                     <td style="color:#10b981; font-weight:800;">₹${Number(p.amount).toLocaleString()}</td>
+                     <td><span class="payment-badge upi">${p.mode}</span></td>
+                 </tr>`;
+             });
+        }
+
+        if(activeOrdersCount === 0) {
+            recentLiveTbody.innerHTML = '<tr><td colspan="9" style="text-align:center; color:#166534; padding: 20px; font-weight:600;">No cached recent live orders available.</td></tr>';
+            adminTbody.innerHTML = '<tr><td colspan="10">No customer activity recorded yet in ledger.</td></tr>'; return;
+        }
+
+        let activeOrdersList = orders.filter(o => !o.isDeleted).slice().reverse();
+
+        let recentOrders = activeOrdersList.slice(0, 5);
+        recentOrders.forEach((order) => {
+            let rowTag = 'tag-pending'; if (order.status === 'Confirmed') rowTag = 'tag-confirmed'; else if (order.status === 'Delivery on Way') rowTag = 'tag-delivery';
+            
+            let sendInvoiceBtn = `<button class="btn-ai-wa-action" onclick="sendThermalJPEGInvoiceViaWhatsApp(${order.id})">📤 Send Invoice</button>`;
+
+            recentLiveTbody.innerHTML += `
+                <tr class="live-order-row-lightgreen">
+                    <td style="font-weight:700; color:#065f46;"><span class="t-dot t-green active" style="margin-right:6px;"></span> ${order.timeString || 'Just now'} <br><small style="color:#047857;">${order.date}</small></td>
+                    <td style="font-weight:800; color:#0b7a54;">${order.tcId || 'TC-2026'}</td>
+                    <td style="font-weight:700; color:#1a1a1a;">${order.name}</td>
+                    <td style="font-size:11px; color:#1e3a2b; font-weight:500;">${order.address}</td>
+                    <td style="font-weight:700; color:#064e3b;">${order.mobile}</td>
+                    <td style="font-weight:600; color:#166534;">${order.plan}</td>
+                    <td><span class="payment-badge upi" style="background:#dcfce7; color:#15803d; border:1px solid #86efac;">${order.payment || 'PhonePe'}</span></td>
+                    <td><span class="status-tag ${rowTag}">${order.status}</span></td>
+                    <td>${sendInvoiceBtn}</td>
+                </tr>
+            `;
+        });
+
+        activeOrdersList.forEach(order => {
+            let rowTag = 'tag-pending'; if (order.status === 'Confirmed') rowTag = 'tag-confirmed'; else if (order.status === 'Delivery on Way') rowTag = 'tag-delivery';
+
+            let payClass = 'upi'; if(order.payment === 'Cash') payClass = 'cod'; else if(order.payment === 'Advance Payment') payClass = 'advance';
+
+            let actionBtn = '';
+            if(order.status === 'Pending') { actionBtn = `<button class="btn-action-edit" style="background:var(--hero-bg);" onclick="confirmAdminOrder(${order.id})">Confirm Payment</button>`; } 
+            else if(order.status === 'Confirmed') { actionBtn = `<button class="btn-action-edit" style="background:var(--delivery-blue);" onclick="dispatchDelivery(${order.id})">Dispatch</button>`; } 
+            else { actionBtn = `<span style="color:var(--delivery-blue); font-weight:bold; font-size:12px; margin-right:5px;">On the Way</span>`; }
+            
+            let advBtn = `<button class="btn-action-edit" style="background: #8b5cf6;" onclick="addAdvancePayment(${order.id}, '${order.mobile}', '${order.plan}', '${order.name}')">+ Adv</button>`;
+            let deleteBtn = `<button class="btn-action-edit" style="background: var(--theme-red);" onclick="deleteAdminOrder(${order.id})">Delete</button>`;
+
+            let paymentRemindersHtml = `
+                <div style="display:flex; gap:4px; margin-top:5px; flex-wrap:wrap; justify-content:center;">
+                    <button class="btn-rem-wa" onclick="sendReminderWA(${order.id}, 'trial')">Trial Rem</button>
+                    <button class="btn-rem-wa" onclick="sendReminderWA(${order.id}, 'advance')">Adv Rem</button>
+                    <button class="btn-rem-wa" onclick="sendReminderWA(${order.id}, 'dues')">Dues Rem</button>
+                </div>
+            `;
+
+            // Calculate Paid & Balance
+            let planAmt = getAmountFromPlan(order.plan);
+            let orderPayments = payments.filter(p => p.mobile === order.mobile);
+            let totalPaid = orderPayments.reduce((sum, p) => sum + Number(p.amount), 0);
+            let balance = planAmt - totalPaid;
+            let balColor = balance > 0 ? '#ef4444' : '#10b981';
+            let paidBalHtml = `<div style="font-size:11px; line-height: 1.5;">Paid: <span style="color:#10b981;font-weight:800;">₹${totalPaid.toLocaleString()}</span><br>Bal: <span style="color:${balColor};font-weight:800;">₹${balance.toLocaleString()}</span></div>`;
+
+            let currentRemarkVal = order.remark || '';
+            let slipViewHtml = order.paymentSlip ? `<div style="margin-top: 4px;"><span style="color:#16a34a; font-weight:700; font-size: 11px;">📎 ${order.paymentSlip}</span><br><button style="background:#16a34a; color:white; border:none; padding:3px 8px; border-radius:4px; font-size:10px; cursor:pointer; margin-top:4px;" onclick="viewPaymentSlip(${order.id})">👁️ View Slip</button></div>` : `<div style="margin-top: 4px;"><span style="color:#94a3b8; font-size: 11px;">No Slip</span><br><label style="background:var(--hero-bg); color:white; border:none; padding:3px 8px; border-radius:4px; font-size:10px; cursor:pointer; margin-top:4px; display:inline-block;">📤 Update<input type="file" style="display:none;" onchange="adminUpdateSlip(event, ${order.id})" accept="image/*,application/pdf"></label></div>`;
+
+            let trafficLightsHtml = `<div class="traffic-light-container"><span class="t-dot ${order.status === 'Pending' ? 't-red active' : ''}" title="Pending"></span><span class="t-dot ${order.status === 'Confirmed' ? 't-yellow active' : ''}" title="Confirmed"></span><span class="t-dot ${order.status === 'Delivery on Way' ? 't-green active' : ''}" title="Delivery on Way"></span></div>`;
+
+            adminTbody.innerHTML += `
+                <tr>
+                    <td style="font-size:11px; font-weight:700; color:#0b7a54;">${order.date}</td>
+                    <td style="font-weight:700;">${order.name} <br><small style="color:#64748b;">${order.tcId || ''}</small></td>
+                    <td style="font-size:11px; color:#555;">${order.address || 'N/A'}</td>
+                    <td style="font-weight:600;">${order.mobile}</td>
+                    <td>${order.plan} <br><small style="color:var(--hero-bg);">${order.shift || 'Evening Shift'}</small></td>
+                    <td style="min-width: 90px;">${paidBalHtml}</td>
+                    <td><span class="payment-badge ${payClass}">${order.payment || 'PhonePe'}</span>${slipViewHtml}</td>
+                    <td style="text-align:center;">${trafficLightsHtml}<br><span class="status-tag ${rowTag}">${order.status}</span></td>
+                    <td><input type="text" id="remarkInput_${order.id}" class="admin-remark-input" value="${currentRemarkVal}" placeholder="e.g. Late / Vacation"><div class="remark-btn-group"><button class="btn-remark-view" onclick="viewAdminRemark(${order.id})">👁️ View</button><button class="btn-remark-update" onclick="saveAdminRemark(${order.id})">🔄 Update</button></div></td>
+                    <td style="min-width: 170px;"><div style="display:flex; gap:4px; align-items:center; margin-bottom: 4px;">${actionBtn}${advBtn}${deleteBtn}</div>${paymentRemindersHtml}</td>
+                </tr>
+            `;
+        });
+        filterAdminTable(); 
+    }
+
+    function confirmAdminOrder(orderId) {
+        let orders = JSON.parse(localStorage.getItem('tiffinsOrders')) || [];
+        for (let i = 0; i < orders.length; i++) { if (orders[i].id === orderId) { orders[i].status = 'Confirmed'; orders[i].customerNotified = false; break; } }
+        localStorage.setItem('tiffinsOrders', JSON.stringify(orders)); renderAdminDashboardData(); showNotification("Payment confirmed! Customer can now place 2nd order via Re-Order.", false);
+    }
+
+    function dispatchDelivery(orderId) {
+        let orders = JSON.parse(localStorage.getItem('tiffinsOrders')) || [];
+        for (let i = 0; i < orders.length; i++) { if (orders[i].id === orderId) { orders[i].status = 'Delivery on Way'; orders[i].customerNotified = false; break; } }
+        localStorage.setItem('tiffinsOrders', JSON.stringify(orders)); renderAdminDashboardData();
+    }
+</script>
+
+</body>
+</html>
